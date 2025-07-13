@@ -1,0 +1,6 @@
+{
+  "instruction": "Recommend photo ID",
+  "emailTemplate": "owner - how to verify - recommend photo id_en_us",
+  "kb": "KB - Owner Registration & Verification",
+  "relatedCases": ["1029109", "1023820"]
+}
