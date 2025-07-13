@@ -1,7 +1,7 @@
 const GITHUB_RAW_URL = 'https://raw.githubusercontent.com/diskbreak1010/agent-tool/main/';
 
 async function fetchJSON(path) {
-  const fullUrl = 'https://raw.githubusercontent.com/diskbreak1010/agent-tool/main/' + encodeURI(path);
+  const fullUrl = GITHUB_RAW_URL + encodeURI(path); // safely encode spaces
   console.log("📡 Fetching:", fullUrl);
   const response = await fetch(fullUrl);
   if (!response.ok) {
@@ -16,8 +16,17 @@ async function loadCategories(requestor) {
 }
 
 async function loadResolution(pathParts) {
-  const fullPath = `resolutions/${pathParts.join('/')}.json`;
+  const folderPath = pathParts.slice(1, -1).join('/'); // skip requestor at index 0
+  const fileName = pathParts[pathParts.length - 1] + '.json';
+  const fullPath = `resolutions/${folderPath}/${fileName}`;
   return await fetchJSON(fullPath);
+}
+
+function capitalize(text) {
+  return text
+    .split(" ")
+    .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(" ");
 }
 
 function clearDynamicFields() {
@@ -45,15 +54,27 @@ function showResolution(resolution) {
 }
 
 async function handleRequestorChange() {
-  const requestor = document.getElementById('requestor').value;
+  const select = document.getElementById('requestor');
+  const requestor = select.value;
   clearDynamicFields();
 
   if (!requestor) return;
 
   const categories = await loadCategories(requestor);
-  if (categories && Object.keys(categories).length > 0) {
+  if (categories) {
     const dropdown = createDropdown('Category', categories, [requestor]);
     document.getElementById('dynamicFields').appendChild(dropdown);
+  } else {
+    console.warn(`⚠️ No categories found for requestor: ${requestor}`);
+  }
+}
+
+async function handleCategoryChange(pathParts) {
+  const resolutionData = await loadResolution(pathParts);
+  if (resolutionData) {
+    showResolution(resolutionData);
+  } else {
+    console.warn("⚠️ No resolution found for path:", pathParts.join(' > '));
   }
 }
 
@@ -72,7 +93,7 @@ function createDropdown(labelText, options, pathSoFar) {
   Object.keys(options).forEach(key => {
     const option = document.createElement('option');
     option.value = key;
-    option.textContent = key;
+    option.textContent = capitalize(key);
     select.appendChild(option);
   });
 
@@ -81,20 +102,17 @@ function createDropdown(labelText, options, pathSoFar) {
       document.getElementById('dynamicFields').removeChild(wrapper.nextSibling);
     }
 
-    const selected = select.value;
-    if (!selected) return;
+    const selectedValue = select.value;
+    if (!selectedValue) return;
 
-    const newPath = [...pathSoFar, selected];
-    const nextOptions = options[selected];
+    const newPath = [...pathSoFar, selectedValue];
+    const subOptions = options[selectedValue];
 
-    if (nextOptions && Object.keys(nextOptions).length > 0) {
-      const nextDropdown = createDropdown('Next', nextOptions, newPath);
+    if (subOptions && Object.keys(subOptions).length > 0) {
+      const nextDropdown = createDropdown('Next', subOptions, newPath);
       document.getElementById('dynamicFields').appendChild(nextDropdown);
     } else {
-      const resolutionData = await loadResolution(newPath);
-      if (resolutionData) {
-        showResolution(resolutionData);
-      }
+      await handleCategoryChange(newPath);
     }
   });
 
@@ -106,5 +124,7 @@ document.getElementById('requestor').addEventListener('change', handleRequestorC
 
 function copyText(id) {
   const text = document.getElementById(id).textContent;
-  navigator.clipboard.writeText(text).then(() => alert('Copied!'));
+  navigator.clipboard.writeText(text).then(() => {
+    alert('Copied to clipboard!');
+  });
 }
