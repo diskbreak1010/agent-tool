@@ -1,6 +1,6 @@
 {
-  "Instruction": "Check Salesforce if the email has a message from T&S with the subject 'Failed Identity-check'.\n\n- If yes, inform the user to check that email and follow the steps.\n- If not, escalate to the T&S team.",
-  "Email Template": "Hi,\n\nThank you for contacting Tripadvisor. We understand that you are unable to complete the verification for your listing.\n\nPlease check your email with the subject 'Failed Identity-check' and follow the steps to complete the verification.\n\nThank you for understanding, and feel free to reach out to us if you have any other concerns.",
-  "Knowledge Based": "Owner Registration & Verification",
-  "Related Cases": ["109210", "102837"]
+  "instruction": "Check Salesforce if the email has a message from T&S with the subject 'Failed Identity-check'.\n\n- If yes, inform the user to check that email and follow the steps.\n- If not, escalate to the T&S team.",
+  "emailTemplate": "Hi,\n\nThank you for contacting Tripadvisor. We understand that you are unable to complete the verification for your listing.\n\nPlease check your email with the subject 'Failed Identity-check' and follow the steps to complete the verification.\n\nThank you for understanding, and feel free to reach out to us if you have any other concerns.",
+  "kb": "Owner Registration & Verification",
+  "relatedCases": ["109210", "102837"]
 }
