@@ -1,7 +1,8 @@
 const GITHUB_RAW_URL = 'https://raw.githubusercontent.com/diskbreak1010/agent-tool/main/';
 
-async function fetchJSON('categories/owner.json') {
-  const fullUrl = 'https://github.com/diskbreak1010/agent-tool' + 'categories/owner.json';
+async function fetchJSON(path) {
+  const fullUrl = 'https://raw.githubusercontent.com/diskbreak1010/agent-tool/main/' + encodeURI(path);
+  console.log("📡 Fetching:", fullUrl);
   const response = await fetch(fullUrl);
   if (!response.ok) {
     console.error('❌ Failed to fetch:', fullUrl);
