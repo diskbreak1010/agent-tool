@@ -5,12 +5,12 @@
         "owner registered not verified": {
           "not verified": {}
         },
-        "owner identity check pending": {}
-      },
-      "owner disabled": {},
-      "owner verified full": {},
-      "owner pre verified no terms": {},
-      "owner white list pending": {}
+        "owner identity check": {},
+        "owner disabled": {},
+        "owner verified full": {},
+        "owner pre verified no terms": {},
+        "owner white list pending": {}
+      }
     }
   }
 }
