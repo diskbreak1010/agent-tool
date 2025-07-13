@@ -6,7 +6,11 @@
           "not verified": {}
         },
         "owner identity check": {}
-      }
+      },
+      "owner disabled": {},
+      "owner verified full": {},
+      "owner pre verified no terms": {},
+      "owner white list pending": {}
     }
   }
 }
