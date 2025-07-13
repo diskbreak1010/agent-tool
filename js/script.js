@@ -41,8 +41,8 @@ function clearDynamicFields() {
 
 function showResolution(resolution) {
   document.getElementById('resolutionContainer').classList.remove('hidden');
-  document.getElementById('instructionText').textContent = resolution.instruction || '—';
-  document.getElementById('emailTemplate').textContent = resolution.emailTemplate || '—';
+  document.getElementById('instructionText').innerHTML = (resolution.instruction || '—').replace(/\n/g, '<br>');
+  document.getElementById('emailTemplate').innerHTML = (resolution.emailTemplate || '—').replace(/\n/g, '<br>');
   document.getElementById('kbLink').textContent = resolution.kb || '—';
 
   const list = document.getElementById('relatedCasesList');
