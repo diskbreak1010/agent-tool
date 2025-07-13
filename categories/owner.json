@@ -11,13 +11,6 @@
         "owner pre verified no terms": {},
         "owner white list pending": {}
       }
-    },
-    "ownership change": {
-      "owner submitted request": {
-        "waiting": {},
-        "incomplete documents": {}
-      },
-      "owner needs to submit form": {}
     }
   }
 }
