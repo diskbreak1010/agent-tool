@@ -12,6 +12,12 @@
         "owner white list pending": {}
       }
     },
-    "ownership change": {},
+    "ownership change": {
+      "owner submitted request": {
+        "waiting": {},
+        "incomplete documents": {}
+      },
+      "owner needs to submit form": {}
+    }
   }
 }
