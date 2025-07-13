@@ -5,7 +5,7 @@
         "owner registered not verified": {
           "not verified": {}
         },
-        "owner identity check": {}
+        "owner identity check pending": {}
       },
       "owner disabled": {},
       "owner verified full": {},
