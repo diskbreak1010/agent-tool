@@ -1,7 +1,7 @@
 const GITHUB_RAW_URL = 'https://raw.githubusercontent.com/diskbreak1010/agent-tool/main/';
 
 async function fetchJSON(path) {
-  const fullUrl = GITHUB_RAW_URL + encodeURI(path); // safely encode spaces
+  const fullUrl = GITHUB_RAW_URL + encodeURI(path);
   console.log("📡 Fetching:", fullUrl);
   const response = await fetch(fullUrl);
   if (!response.ok) {
@@ -16,7 +16,8 @@ async function loadCategories(requestor) {
 }
 
 async function loadResolution(pathParts) {
-  const folderPath = pathParts.slice(1, -1).join('/'); // skip requestor at index 0
+  // skip the first part (e.g., 'owner') for folder path
+  const folderPath = pathParts.slice(1, -1).join('/');
   const fileName = pathParts[pathParts.length - 1] + '.json';
   const fullPath = `resolutions/${folderPath}/${fileName}`;
   return await fetchJSON(fullPath);
@@ -70,9 +71,9 @@ async function handleRequestorChange() {
 }
 
 async function handleCategoryChange(pathParts) {
-  const resolutionData = await loadResolution(pathParts);
-  if (resolutionData) {
-    showResolution(resolutionData);
+  const resolution = await loadResolution(pathParts);
+  if (resolution) {
+    showResolution(resolution);
   } else {
     console.warn("⚠️ No resolution found for path:", pathParts.join(' > '));
   }
