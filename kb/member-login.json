@@ -1,0 +1,22 @@
+{
+  "title": "Member Login Guide",
+  "sections": [
+    {
+      "title": "🔑 How to Reset Your Password",
+      "content": "<p>If you forgot your password, go to the login screen and click <strong>Forgot Password</strong>. You will receive an email with instructions.</p><p>Make sure to check your spam/junk folder if you don’t see it within a few minutes.</p>",
+      "image": "https://raw.githubusercontent.com/diskbreak1010/agent-tool/main/KB/images/reset-password.png"
+    },
+    {
+      "title": "🧑‍💻 Login via Google or Facebook",
+      "content": "<p>On the login page, click the <strong>Continue with Google</strong> or <strong>Continue with Facebook</strong> button. Make sure you’re signed in to the correct Google/Facebook account.</p><p>If your social account isn't linked yet, the system may ask you to verify or create a password to link accounts.</p>"
+    },
+    {
+      "title": "⚠️ Common Login Issues",
+      "content": "<ul><li>Incorrect email or password</li><li>Social login mismatch</li><li>Account suspended or flagged</li></ul><p>If none of these solve your issue, contact our support team.</p>"
+    },
+    {
+      "title": "🛡️ Tips for Keeping Your Account Secure",
+      "content": "<ul><li>Use a strong password with letters, numbers, and symbols</li><li>Do not share your login credentials</li><li>Enable two-factor authentication if available</li></ul>"
+    }
+  ]
+}
