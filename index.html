@@ -2,52 +2,162 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Sutherland Resolution Tool</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>PROTOTYPE II BPTS</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <div class="container">
-    <header>
-      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/02/TripAdvisor_Logo.svg/1200px-TripAdvisor_Logo.svg.png" alt="Logo" class="logo" />
-      <button class="theme-toggle" onclick="document.body.classList.toggle('dark')">🌓</button>
-    </header>
+  <!-- TOP BAR -->
+  <div class="top-bar">
+    <div class="logo-container">
+      <img src="https://raw.githubusercontent.com/diskbreak1010/agent-tool/main/LOGO%20BPTS.png" alt="Logo" class="logo-img" />
+      <div class="logo-text">PROTOTYPE II BPTS</div>
+    </div>
 
-    <form>
-      <h1>Sutherland Resolution Tool</h1>
-
-      <label for="requestor">Requestor</label>
-      <select id="requestor">
-        <option value="">Select Requestor</option>
-        <option value="owner">Owner</option>
-        <option value="member">Member</option>
-        <option value="unregistered">Unregistered</option>
-      </select>
-
-      <div id="dynamicFields"></div>
-
-      <div id="resolutionContainer" class="hidden">
-        <h2>Resolution</h2>
-        <p><strong>Instruction:</strong></p>
-        <p id="instructionText" class="copy-text"></p>
-
-        <p><strong>Email Template:</strong></p>
-        <div class="copy-block">
-          <p id="emailTemplate" class="copy-text"></p>
-          <button type="button" onclick="copyText('emailTemplate')">Copy Email</button>
-        </div>
-
-        <p><strong>KB Article:</strong></p>
-        <div class="copy-block">
-          <p id="kbLink" class="copy-text"></p>
-          <button type="button" onclick="copyText('kbLink')">Copy KB</button>
-        </div>
-
-        <p><strong>Related Cases:</strong></p>
-        <ul id="relatedCasesList"></ul>
-      </div>
-    </form>
+    <div class="nav-buttons">
+      <button class="nav-link active" data-section="home">Home</button>
+      <button class="nav-link" data-section="knowledge">Knowledge Base</button>
+      <button class="nav-link" data-section="resolutions">Resolutions</button>
+      <button class="nav-link" data-section="escalations">Escalations</button>
+      <button class="nav-link" data-section="schedules">Schedules</button>
+      <button class="nav-link" data-section="devmode">DevMode</button>
+    </div>
+    <button class="theme-toggle" onclick="document.body.classList.toggle('dark')">🌓</button>
   </div>
-  <script src="js/script.js"></script>
+
+  <!-- MAIN LAYOUT -->
+  <div class="layout">
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+      <div class="sidebar-section">
+        <button class="toggle-button" onclick="toggleDropdown('productsDropdown')">Products <span>▼</span></button>
+        <ul class="dropdown" id="productsDropdown">
+          <li onclick="showSidebarContent('Business Advantage')">Business Advantage</li>
+          <li onclick="showSidebarContent('Sponsored Placement')">Sponsored Placement</li>
+        </ul>
+      </div>
+
+      <div class="sidebar-section">
+        <button class="toggle-button" onclick="toggleDropdown('infoDropdown')">Information <span>▼</span></button>
+        <ul class="dropdown" id="infoDropdown">
+          <li onclick="showSidebarContent('Terms and Policies')">Terms and Policies</li>
+          <li onclick="showSidebarContent('Account Security')">Account Security</li>
+        </ul>
+      </div>
+
+      <div id="sidebarContent">
+        <div class="default-message">Select a category to view content.</div>
+      </div>
+
+      <div class="clear-link-container">
+        <span id="clearSidebarBtn" class="clear-link">Clear</span>
+      </div>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main class="main-panel">
+      <!-- HOME -->
+      <section id="home" class="main-section visible">
+        <form>
+          <h1>Sutherland Resolution Tool</h1>
+          <label for="requestor">Requestor</label>
+          <select id="requestor">
+            <option value="">Select Requestor</option>
+            <option value="owner">Owner</option>
+            <option value="member">Member</option>
+            <option value="unregistered">Unregistered</option>
+          </select>
+          <div id="dynamicFields"></div>
+
+          <div id="resolutionContainer" class="hidden">
+            <h2>Resolution</h2>
+            <p><strong>Instruction:</strong></p>
+            <p id="instructionText" class="copy-text"></p>
+
+            <p><strong>Email Template:</strong></p>
+            <div class="copy-block">
+              <p id="emailTemplate" class="copy-text"></p>
+              <button type="button" onclick="copyText('emailTemplate')">Copy Email</button>
+            </div>
+
+            <p><strong>KB Article:</strong></p>
+            <div class="copy-block">
+              <p id="kbLink" class="copy-text"></p>
+              <button type="button" onclick="copyText('kbLink')">Copy KB</button>
+            </div>
+
+            <p><strong>Related Cases:</strong></p>
+            <ul id="relatedCasesList"></ul>
+          </div>
+        </form>
+      </section>
+
+      <!-- 🆕 KNOWLEDGE BASE SECTION -->
+      <section id="knowledge" class="main-section">
+        <input type="text" placeholder="Search Knowledge Base..." class="search-bar" oninput="filterKBArticles(this.value)" />
+        <div id="kbList"></div>
+        <div id="kbArticleContainer" class="hidden"></div>
+      </section>
+
+      <!-- RESOLUTIONS -->
+      <section id="resolutions" class="main-section">
+        <input type="text" placeholder="Search Resolutions..." class="search-bar" />
+        <p>This is where saved or common resolutions will appear.</p>
+      </section>
+
+      <!-- ESCALATIONS -->
+      <section id="escalations" class="main-section">
+        <input type="text" placeholder="Search Escalations..." class="search-bar" />
+        <p>This is where escalation guides will appear.</p>
+      </section>
+
+      <!-- SCHEDULES -->
+      <section id="schedules" class="main-section">
+        <div class="schedule-container">
+          <h2>Schedules</h2>
+          <p>Loading schedule data...</p>
+        </div>
+      </section>
+
+      <!-- 🔐 DEVMODE -->
+      <section id="devmode" class="main-section">
+        <div id="devLoginForm">
+          <h2>Enter Developer Mode</h2>
+          <form onsubmit="return handleDevLogin(event)">
+            <label for="devUsername">Username</label>
+            <input type="text" id="devUsername" required />
+
+            <label for="devPassword">Password</label>
+            <input type="password" id="devPassword" required />
+
+            <button type="submit">Login</button>
+          </form>
+          <p id="loginError" class="login-error hidden">❌ Invalid username or password</p>
+        </div>
+
+        <div id="devDashboard" class="hidden">
+          <div class="devmode-topbar">
+            <button class="dev-tab active" data-devtab="qa">QA Criteria</button>
+            <button class="dev-tab" data-devtab="coaching">Coaching Tips</button>
+            <button class="dev-tab" data-devtab="analytics">Analytics</button>
+            <button class="dev-tab" data-devtab="issues">Common Issues</button>
+            <button class="dev-tab" data-devtab="troubleshooting">Troubleshooting</button>
+            <button class="dev-tab logout" onclick="logoutDev()">Logout</button>
+          </div>
+
+          <div id="devContent">
+            <div class="dev-tab-content" id="qa">QA Criteria form or content here...</div>
+            <div class="dev-tab-content hidden" id="coaching">Coaching Tips content here...</div>
+            <div class="dev-tab-content hidden" id="analytics">Analytics panel here...</div>
+            <div class="dev-tab-content hidden" id="issues">List of common issues...</div>
+            <div class="dev-tab-content hidden" id="troubleshooting">Troubleshooting steps...</div>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <!-- SCRIPT -->
+  <script src="script.js"></script>
 </body>
 </html>
