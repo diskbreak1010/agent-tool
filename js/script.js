@@ -202,7 +202,7 @@ function filterKBArticles(query) {
 // ------------------------
 // 🔹 Schedule Data
 // ------------------------
-const scheduleSheetURL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQaivnleZd95nd3H6pvOpgjds7VcnX2X8R4ygpw-C2iS5kwbmbUyu8FqLcAqywNEqK_P46vB6n1eAdu/pub?gid=0&single=true&output=csv";
+const scheduleSheetURL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vStORPEOoTDKyZmhozoHdLi04RHk53TeuZU2o6_dl2mv9Fxy8hG5RGCesBmdEpN6e12eUZFPHbqDCps/pub?gid=435840210&single=true&output=csv";
 
 async function loadSchedules() {
   const container = document.getElementById("schedules");
