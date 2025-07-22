@@ -202,7 +202,8 @@ function filterKBArticles(query) {
 // ------------------------
 // 🔹 Schedule Data
 // ------------------------
-const scheduleSheetURL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vStORPEOoTDKyZmhozoHdLi04RHk53TeuZU2o6_dl2mv9Fxy8hG5RGCesBmdEpN6e12eUZFPHbqDCps/pub?gid=435840210&single=true&output=csv";
+const scheduleSheetURL = "https://corsproxy.io/?" +
+  "https://docs.google.com/spreadsheets/d/e/2PACX-1vStORPEOoTDKyZmhozoHdLi04RHk53TeuZU2o6_dl2mv9Fxy8hG5RGCesBmdEpN6e12eUZFPHbqDCps/pub?gid=435840210&single=true&output=csv";
 
 async function loadSchedules() {
   const container = document.getElementById("schedules");
