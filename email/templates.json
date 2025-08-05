@@ -1,0 +1,54 @@
+{
+  "award": [
+    {
+      "title": "Certificate of Recognition",
+      "preview": "Congrats on your outstanding performance...",
+      "filename": "award-recognition.json"
+    },
+    {
+      "title": "Top Performer Notice",
+      "preview": "You’ve been selected as a top performer...",
+      "filename": "award-top-performer.json"
+    }
+  ],
+  "listing": [
+    {
+      "title": "New Listing Confirmation",
+      "preview": "Your item has been successfully listed...",
+      "filename": "listing-confirmation.json"
+    }
+  ],
+  "verification": [
+    {
+      "title": "Identity Verification Required",
+      "preview": "Please verify your identity using the link...",
+      "filename": "verification-id-request.json"
+    },
+    {
+      "title": "Document Verification Success",
+      "preview": "Your documents have been successfully verified.",
+      "filename": "verification-success.json"
+    }
+  ],
+  "reviews": [
+    {
+      "title": "Thank You for Your Feedback",
+      "preview": "We appreciate your recent review...",
+      "filename": "reviews-feedback-thanks.json"
+    }
+  ],
+  "search": [
+    {
+      "title": "Search Alert Activated",
+      "preview": "We’ll notify you when new matches appear...",
+      "filename": "search-alert.json"
+    }
+  ],
+  "ranking": [
+    {
+      "title": "Ranking Update Notification",
+      "preview": "Your current ranking has changed...",
+      "filename": "ranking-update.json"
+    }
+  ]
+}
