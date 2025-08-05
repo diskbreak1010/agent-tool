@@ -1,0 +1,65 @@
+[
+  {
+    "category": "SinglePlatform",
+    "name": "SinglePlatform Support",
+    "email": "support@singleplatform.com",
+    "phone": "+1-800-555-1234",
+    "turnaround": "24-48 hours"
+  },
+  {
+    "category": "OTA",
+    "name": "Booking.com Support",
+    "email": "partner.support@booking.com",
+    "phone": "+1-800-123-4567",
+    "turnaround": "1-2 business days"
+  },
+  {
+    "category": "OTA",
+    "name": "Expedia Partner Support",
+    "email": "support@expediapartners.com",
+    "phone": "+1-800-EXPEDIA",
+    "turnaround": "Same day"
+  },
+  {
+    "category": "OTA",
+    "name": "Trip.com Hotel Support",
+    "email": "hotel_support@trip.com",
+    "phone": "+1-888-123-TRIP",
+    "turnaround": "Within 48 hours"
+  },
+  {
+    "category": "OTA",
+    "name": "Agoda Partner Care",
+    "email": "partner@agoda.com",
+    "phone": "+1-877-AGODA-US",
+    "turnaround": "24 hours"
+  },
+  {
+    "category": "Viator",
+    "name": "Viator Support",
+    "email": "supplier@viator.com",
+    "phone": "+1-888-VIATOR",
+    "turnaround": "2-3 business days"
+  },
+  {
+    "category": "VRBO",
+    "name": "VRBO Support",
+    "email": "partnersupport@vrbo.com",
+    "phone": "+1-800-555-9876",
+    "turnaround": "Same day"
+  },
+  {
+    "category": "Google",
+    "name": "Google Business Profile",
+    "email": "support@google.com",
+    "phone": "+1-800-GOOGLE",
+    "turnaround": "Varies"
+  },
+  {
+    "category": "Hopper",
+    "name": "Hopper Hotel Support",
+    "email": "support@hopper.com",
+    "phone": "+1-833-HOPPER",
+    "turnaround": "1-3 days"
+  }
+]
