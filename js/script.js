@@ -1,9 +1,14 @@
 // ------------------------
-// 🔹 Top Navigation Tabs
+// 🔹 Element Selectors
 // ------------------------
 const navLinks = document.querySelectorAll(".nav-link");
 const mainSections = document.querySelectorAll(".main-section");
+const devTabs = document.querySelectorAll(".dev-tab");
+const devTabContents = document.querySelectorAll(".dev-tab-content");
 
+// ------------------------
+// 🔹 Top Navigation Tabs
+// ------------------------
 navLinks.forEach(link => {
   link.addEventListener("click", () => {
     navLinks.forEach(l => l.classList.remove("active"));
@@ -13,8 +18,10 @@ navLinks.forEach(link => {
     mainSections.forEach(section => section.classList.remove("visible"));
     document.getElementById(targetId).classList.add("visible");
 
+    // Lazy load features
     if (targetId === "schedules") loadSchedules();
-    if (targetId === "knowledge") loadKBIndex();
+    if (targetId === "templates") loadEmailTemplates();
+    if (targetId === "contacts") loadContacts();
   });
 });
 
@@ -43,10 +50,13 @@ document.getElementById("clearSidebarBtn").addEventListener("click", () => {
 const GITHUB_RAW_URL = "https://raw.githubusercontent.com/diskbreak1010/agent-tool/main/";
 
 async function fetchJSON(path) {
+  if (cache[path]) return cache[path];
   try {
     const response = await fetch(GITHUB_RAW_URL + encodeURI(path));
     if (!response.ok) throw new Error("Failed to fetch");
-    return await response.json();
+    const data = await response.json();
+    cache[path] = data;
+    return data;
   } catch (err) {
     console.error("❌ Fetch error:", path, err);
     return null;
@@ -148,58 +158,6 @@ function copyText(id) {
 }
 
 // ------------------------
-// 🆕 🔹 Knowledge Base (KB)
-// ------------------------
-let kbArticles = [];
-
-async function loadKBIndex() {
-  const data = await fetchJSON("kb/index.json");
-  if (!data || !Array.isArray(data)) return;
-  kbArticles = data;
-  displayKBList(data);
-}
-
-function displayKBList(articles) {
-  const kbList = document.getElementById("kbList");
-  kbList.innerHTML = "";
-  document.getElementById("kbArticleContainer").classList.add("hidden");
-
-  articles.forEach(article => {
-    const div = document.createElement("div");
-    div.className = "kb-article-title";
-    div.textContent = article.title;
-    div.onclick = () => loadKBArticle(article.filename); // ✅ Use filename instead of slug
-    kbList.appendChild(div);
-  });
-}
-
-async function loadKBArticle(filename) {
-  const article = await fetchJSON(`kb/${filename}`); // ✅ Directly use filename
-  const container = document.getElementById("kbArticleContainer");
-  if (!article) {
-    container.innerHTML = "<p>❌ Article not found.</p>";
-    container.classList.remove("hidden");
-    return;
-  }
-
-  container.innerHTML = `
-    <h2>${article.title}</h2>
-    <p><strong>Tags:</strong> ${article.tags.join(", ")}</p>
-    <div>${article.content.replace(/\n/g, "<br>")}</div>
-  `;
-  container.classList.remove("hidden");
-}
-
-function filterKBArticles(query) {
-  const q = query.toLowerCase();
-  const filtered = kbArticles.filter(a =>
-    a.title.toLowerCase().includes(q) || a.tags.join(" ").toLowerCase().includes(q)
-  );
-  displayKBList(filtered);
-}
-
-
-// ------------------------
 // 🔹 Schedule Data
 // ------------------------
 const scheduleSheetURL = "https://corsproxy.io/?" +
@@ -285,9 +243,6 @@ function handleDevLogin(e) {
   })
 );
 
-const devTabs = document.querySelectorAll(".dev-tab");
-const devTabContents = document.querySelectorAll(".dev-tab-content");
-
 const defaultContentTemplates = {
   qa: `
     <h3>QA Criteria Submission</h3>
@@ -353,7 +308,7 @@ devTabs.forEach(tab => {
 });
 
 // ------------------------
-// 🆕 🔹 Email Templates
+// 🔹 Email Templates
 // ------------------------
 async function loadEmailTemplates() {
   const container = document.getElementById("emailTemplateList");
@@ -364,18 +319,13 @@ async function loadEmailTemplates() {
     return;
   }
 
-  // data is an object with categories as keys
   const sortedCategories = Object.keys(data).sort();
-
   container.innerHTML = "";
 
   sortedCategories.forEach(cat => {
     const section = document.createElement("div");
     section.className = "email-category";
-
-    // Capitalize category name
     const catName = cat.charAt(0).toUpperCase() + cat.slice(1);
-
     section.innerHTML = `<h3>📁 ${catName}</h3>`;
 
     data[cat].forEach(tpl => {
@@ -393,9 +343,8 @@ async function loadEmailTemplates() {
   });
 }
 
-
 // ------------------------
-// 🆕 🔹 Contacts Directory
+// 🔹 Contacts Directory
 // ------------------------
 async function loadContacts() {
   const container = document.getElementById("contactList");
@@ -419,12 +368,3 @@ async function loadContacts() {
     container.appendChild(div);
   });
 }
-
-// 🔄 Load data when tab is selected
-navLinks.forEach(link => {
-  link.addEventListener("click", () => {
-    const targetId = link.getAttribute("data-section");
-    if (targetId === "email-templates") loadEmailTemplates();
-    if (targetId === "contacts") loadContacts();
-  });
-});
