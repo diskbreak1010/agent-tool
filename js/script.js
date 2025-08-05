@@ -309,3 +309,20 @@ document.addEventListener("click", function (e) {
   }
 });
 
+function filterEmailTemplates(searchTerm) {
+  const allTemplates = document.querySelectorAll('.email-template');
+  const allCategories = document.querySelectorAll('.email-category');
+
+  allTemplates.forEach(template => {
+    const title = template.querySelector('h4')?.textContent.toLowerCase() || '';
+    const preview = template.querySelector('p')?.textContent.toLowerCase() || '';
+    const matches = title.includes(searchTerm.toLowerCase()) || preview.includes(searchTerm.toLowerCase());
+    template.style.display = matches ? 'block' : 'none';
+  });
+
+  // Hide category sections if all children are hidden
+  allCategories.forEach(category => {
+    const visibleTemplates = category.querySelectorAll('.email-template:not([style*="display: none"])');
+    category.style.display = visibleTemplates.length > 0 ? 'block' : 'none';
+  });
+}
