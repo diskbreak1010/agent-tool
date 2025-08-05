@@ -15,6 +15,8 @@ navLinks.forEach(link => {
 
     if (targetId === "schedules") loadSchedules();
     if (targetId === "knowledge") loadKBIndex();
+    if (targetId === "email-templates") loadEmailTemplates();
+    if (targetId === "contacts") loadContacts();
   });
 });
 
@@ -148,7 +150,7 @@ function copyText(id) {
 }
 
 // ------------------------
-// 🆕 🔹 Knowledge Base (KB)
+// 🔹 Knowledge Base (KB)
 // ------------------------
 let kbArticles = [];
 
@@ -168,13 +170,13 @@ function displayKBList(articles) {
     const div = document.createElement("div");
     div.className = "kb-article-title";
     div.textContent = article.title;
-    div.onclick = () => loadKBArticle(article.filename); // ✅ Use filename instead of slug
+    div.onclick = () => loadKBArticle(article.filename);
     kbList.appendChild(div);
   });
 }
 
 async function loadKBArticle(filename) {
-  const article = await fetchJSON(`kb/${filename}`); // ✅ Directly use filename
+  const article = await fetchJSON(`kb/${filename}`);
   const container = document.getElementById("kbArticleContainer");
   if (!article) {
     container.innerHTML = "<p>❌ Article not found.</p>";
@@ -197,7 +199,6 @@ function filterKBArticles(query) {
   );
   displayKBList(filtered);
 }
-
 
 // ------------------------
 // 🔹 Schedule Data
@@ -233,127 +234,7 @@ async function loadSchedules() {
 }
 
 // ------------------------
-// 🔹 Dev Mode Login & Features
-// ------------------------
-const devLoginForm = document.getElementById("devLoginForm");
-const devDashboard = document.getElementById("devDashboard");
-const loginError = document.getElementById("loginError");
-
-const validUsername = "admin";
-const validPassword = "bpts2025!";
-
-let logoutTimer = null;
-
-function resetLogoutTimer() {
-  clearTimeout(logoutTimer);
-  logoutTimer = setTimeout(() => {
-    alert("Session expired. Logging out.");
-    logoutDev();
-  }, 15 * 60 * 1000);
-}
-
-function logoutDev() {
-  const form = devLoginForm.querySelector("form");
-  if (form) form.reset();
-  devLoginForm.classList.remove("hidden");
-  devDashboard.classList.add("hidden");
-  loginError.classList.add("hidden");
-  clearTimeout(logoutTimer);
-}
-
-function handleDevLogin(e) {
-  e.preventDefault();
-  const user = document.getElementById("devUsername").value;
-  const pass = document.getElementById("devPassword").value;
-
-  if (user === validUsername && pass === validPassword) {
-    devLoginForm.classList.add("hidden");
-    devDashboard.classList.remove("hidden");
-    loginError.classList.add("hidden");
-    resetLogoutTimer();
-  } else {
-    loginError.classList.remove("hidden");
-  }
-  return false;
-}
-
-["click", "mousemove", "keydown", "scroll"].forEach(evt =>
-  document.addEventListener(evt, () => {
-    if (!devDashboard.classList.contains("hidden")) {
-      resetLogoutTimer();
-    }
-  })
-);
-
-const devTabs = document.querySelectorAll(".dev-tab");
-const devTabContents = document.querySelectorAll(".dev-tab-content");
-
-const defaultContentTemplates = {
-  qa: `
-    <h3>QA Criteria Submission</h3>
-    <label for="qa-metric">Metric Name</label>
-    <input type="text" id="qa-metric" placeholder="e.g. Call Handling" />
-
-    <label for="qa-description">Description</label>
-    <textarea id="qa-description" rows="4" placeholder="Describe the QA metric..."></textarea>
-
-    <button onclick="alert('QA Submitted!')">Submit</button>
-  `,
-  coaching: `
-    <h3>Coaching Tips Form</h3>
-    <label for="coach-title">Tip Title</label>
-    <input type="text" id="coach-title" placeholder="e.g. Empathy Tips" />
-
-    <label for="coach-text">Tip Content</label>
-    <textarea id="coach-text" rows="4" placeholder="Enter coaching content..."></textarea>
-
-    <button onclick="alert('Coaching Tip Saved!')">Save</button>
-  `,
-  analytics: `
-    <h3>Analytics Overview</h3>
-    <p>This section can show charts or stats from your dataset.</p>
-    <ul>
-      <li>📊 Weekly QA Pass Rate</li>
-      <li>📈 Coaching Effectiveness</li>
-      <li>⏱️ Avg Handling Time</li>
-    </ul>
-  `,
-  issues: `
-    <h3>Common Issues</h3>
-    <ul>
-      <li>📌 System Timeout</li>
-      <li>📌 Login Failure</li>
-      <li>📌 Report Not Loading</li>
-    </ul>
-  `,
-  troubleshooting: `
-    <h3>Troubleshooting Guide</h3>
-    <p>✅ Restart system</p>
-    <p>✅ Check connection</p>
-    <p>✅ Log errors if repeated</p>
-  `
-};
-
-devTabs.forEach(tab => {
-  tab.addEventListener("click", () => {
-    devTabs.forEach(t => t.classList.remove("active"));
-    devTabContents.forEach(c => c.classList.add("hidden"));
-
-    tab.classList.add("active");
-    const target = tab.getAttribute("data-devtab");
-    const content = document.getElementById(target);
-
-    if (content) {
-      content.classList.remove("hidden");
-      if (!content.innerHTML.trim() && defaultContentTemplates[target]) {
-        content.innerHTML = defaultContentTemplates[target];
-      }
-    }
-  });
-});
-
-// ------------------------
-// 🆕 🔹 Email Templates
+// 🔹 Email Templates (Grouped by Category)
 // ------------------------
 async function loadEmailTemplates() {
   const container = document.getElementById("emailTemplateList");
@@ -364,29 +245,6 @@ async function loadEmailTemplates() {
     return;
   }
 
-  container.innerHTML = "";
-  data.forEach(tpl => {
-    const div = document.createElement("div");
-    div.className = "email-template";
-    div.innerHTML = `
-      <h4>${tpl.title}</h4>
-      <p>${tpl.preview}</p>
-      <button onclick="showEmailTemplateModal('${tpl.filename}')">View</button>
-    `;
-    container.appendChild(div);
-  });
-}
-
-async function loadEmailTemplates() {
-  const container = document.getElementById("emailTemplateList");
-  container.innerHTML = "<p>Loading templates...</p>";
-  const data = await fetchJSON("email/templates.json");
-  if (!data || !Array.isArray(data)) {
-    container.innerHTML = "<p>❌ Failed to load email templates.</p>";
-    return;
-  }
-
-  // 🔸 Group templates by category
   const grouped = {};
   data.forEach(tpl => {
     const category = tpl.category || "uncategorized";
@@ -394,19 +252,13 @@ async function loadEmailTemplates() {
     grouped[category].push(tpl);
   });
 
-  // 🔸 Sort categories alphabetically
   const sortedCategories = Object.keys(grouped).sort();
-
   container.innerHTML = "";
 
   sortedCategories.forEach(cat => {
     const section = document.createElement("div");
     section.className = "email-category";
-
-    // Capitalize category name
-    const catName = cat.charAt(0).toUpperCase() + cat.slice(1);
-
-    section.innerHTML = `<h3>📁 ${catName}</h3>`;
+    section.innerHTML = `<h3>📁 ${cat.charAt(0).toUpperCase() + cat.slice(1)}</h3>`;
 
     grouped[cat].forEach(tpl => {
       const div = document.createElement("div");
@@ -423,9 +275,35 @@ async function loadEmailTemplates() {
   });
 }
 
+async function showEmailTemplateModal(filename) {
+  const modal = document.getElementById("emailTemplateModal");
+  const content = modal.querySelector(".modal-content");
+  const tpl = await fetchJSON("email/" + filename);
+  if (!tpl) {
+    content.innerHTML = "<p>❌ Failed to load template.</p>";
+  } else {
+    content.innerHTML = `
+      <h3>${tpl.title}</h3>
+      <p><strong>Tags:</strong> ${tpl.tags.join(", ")}</p>
+      <div>${tpl.content.replace(/\n/g, "<br>")}</div>
+    `;
+  }
+  modal.style.display = "block";
+}
+
+document.getElementById("closeEmailModal").addEventListener("click", () => {
+  document.getElementById("emailTemplateModal").style.display = "none";
+});
+
+window.addEventListener("click", event => {
+  const modal = document.getElementById("emailTemplateModal");
+  if (event.target === modal) {
+    modal.style.display = "none";
+  }
+});
 
 // ------------------------
-// 🆕 🔹 Contacts Directory
+// 🔹 Contacts Directory
 // ------------------------
 async function loadContacts() {
   const container = document.getElementById("contactList");
@@ -449,12 +327,3 @@ async function loadContacts() {
     container.appendChild(div);
   });
 }
-
-// 🔄 Load data when tab is selected
-navLinks.forEach(link => {
-  link.addEventListener("click", () => {
-    const targetId = link.getAttribute("data-section");
-    if (targetId === "email-templates") loadEmailTemplates();
-    if (targetId === "contacts") loadContacts();
-  });
-});
