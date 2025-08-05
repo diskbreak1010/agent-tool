@@ -351,3 +351,110 @@ devTabs.forEach(tab => {
     }
   });
 });
+
+// ------------------------
+// 🆕 🔹 Email Templates
+// ------------------------
+async function loadEmailTemplates() {
+  const container = document.getElementById("emailTemplateList");
+  container.innerHTML = "<p>Loading templates...</p>";
+  const data = await fetchJSON("email/templates.json");
+  if (!data || !Array.isArray(data)) {
+    container.innerHTML = "<p>❌ Failed to load email templates.</p>";
+    return;
+  }
+
+  container.innerHTML = "";
+  data.forEach(tpl => {
+    const div = document.createElement("div");
+    div.className = "email-template";
+    div.innerHTML = `
+      <h4>${tpl.title}</h4>
+      <p>${tpl.preview}</p>
+      <button onclick="showEmailTemplateModal('${tpl.filename}')">View</button>
+    `;
+    container.appendChild(div);
+  });
+}
+
+async function loadEmailTemplates() {
+  const container = document.getElementById("emailTemplateList");
+  container.innerHTML = "<p>Loading templates...</p>";
+  const data = await fetchJSON("email/templates.json");
+  if (!data || !Array.isArray(data)) {
+    container.innerHTML = "<p>❌ Failed to load email templates.</p>";
+    return;
+  }
+
+  // 🔸 Group templates by category
+  const grouped = {};
+  data.forEach(tpl => {
+    const category = tpl.category || "uncategorized";
+    if (!grouped[category]) grouped[category] = [];
+    grouped[category].push(tpl);
+  });
+
+  // 🔸 Sort categories alphabetically
+  const sortedCategories = Object.keys(grouped).sort();
+
+  container.innerHTML = "";
+
+  sortedCategories.forEach(cat => {
+    const section = document.createElement("div");
+    section.className = "email-category";
+
+    // Capitalize category name
+    const catName = cat.charAt(0).toUpperCase() + cat.slice(1);
+
+    section.innerHTML = `<h3>📁 ${catName}</h3>`;
+
+    grouped[cat].forEach(tpl => {
+      const div = document.createElement("div");
+      div.className = "email-template";
+      div.innerHTML = `
+        <h4>${tpl.title}</h4>
+        <p>${tpl.preview}</p>
+        <button onclick="showEmailTemplateModal('${tpl.filename}')">View</button>
+      `;
+      section.appendChild(div);
+    });
+
+    container.appendChild(section);
+  });
+}
+
+
+// ------------------------
+// 🆕 🔹 Contacts Directory
+// ------------------------
+async function loadContacts() {
+  const container = document.getElementById("contactList");
+  container.innerHTML = "<p>Loading contacts...</p>";
+  const contacts = await fetchJSON("contacts/directory.json");
+  if (!contacts || !Array.isArray(contacts)) {
+    container.innerHTML = "<p>❌ Failed to load contacts.</p>";
+    return;
+  }
+
+  container.innerHTML = "";
+  contacts.forEach(c => {
+    const div = document.createElement("div");
+    div.className = "contact-card";
+    div.innerHTML = `
+      <h4>${c.name}</h4>
+      <p><strong>Email:</strong> <a href="mailto:${c.email}">${c.email}</a></p>
+      <p><strong>Phone:</strong> <a href="tel:${c.phone}">${c.phone}</a></p>
+      <p><strong>Department:</strong> ${c.department}</p>
+    `;
+    container.appendChild(div);
+  });
+}
+
+// 🔄 Load data when tab is selected
+navLinks.forEach(link => {
+  link.addEventListener("click", () => {
+    const targetId = link.getAttribute("data-section");
+    if (targetId === "email-templates") loadEmailTemplates();
+    if (targetId === "contacts") loadContacts();
+  });
+});
