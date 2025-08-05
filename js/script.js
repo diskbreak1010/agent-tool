@@ -1,15 +1,15 @@
 // ------------------------
+// 🔹 Global Cache
+// ------------------------
+const cache = {};
+
+// ------------------------
 // 🔹 Element Selectors
 // ------------------------
 const navLinks = document.querySelectorAll(".nav-link");
 const mainSections = document.querySelectorAll(".main-section");
 const devTabs = document.querySelectorAll(".dev-tab");
 const devTabContents = document.querySelectorAll(".dev-tab-content");
-
-// ------------------------
-// 🔹 Global Cache Fix
-// ------------------------
-const cache = {}; // ✅ Fix: Declare global cache object
 
 // ------------------------
 // 🔹 Top Navigation Tabs
@@ -52,7 +52,7 @@ document.getElementById("clearSidebarBtn").addEventListener("click", () => {
 // ------------------------
 // 🔹 Resolution Tool
 // ------------------------
-const GITHUB_RAW_URL = "https://raw.githubusercontent.com/diskbreak1010/agent-tool/main/";
+const GITHUB_RAW_URL = "https://corsproxy.io/?https://raw.githubusercontent.com/diskbreak1010/agent-tool/main/";
 
 async function fetchJSON(path) {
   if (cache[path]) return cache[path];
@@ -163,10 +163,9 @@ function copyText(id) {
 }
 
 // ------------------------
-// 🔹 Schedule Data
+// 🔹 Schedule Loader
 // ------------------------
-const scheduleSheetURL = "https://corsproxy.io/?" +
-  "https://docs.google.com/spreadsheets/d/e/2PACX-1vStORPEOoTDKyZmhozoHdLi04RHk53TeuZU2o6_dl2mv9Fxy8hG5RGCesBmdEpN6e12eUZFPHbqDCps/pub?gid=435840210&single=true&output=csv";
+const scheduleSheetURL = "https://corsproxy.io/?https://docs.google.com/spreadsheets/d/e/2PACX-1vStORPEOoTDKyZmhozoHdLi04RHk53TeuZU2o6_dl2mv9Fxy8hG5RGCesBmdEpN6e12eUZFPHbqDCps/pub?gid=435840210&single=true&output=csv";
 
 async function loadSchedules() {
   const container = document.getElementById("schedules");
@@ -196,106 +195,37 @@ async function loadSchedules() {
 }
 
 // ------------------------
-// 🔹 Dev Mode Login & Features
-// ------------------------
-const devLoginForm = document.getElementById("devLoginForm");
-const devDashboard = document.getElementById("devDashboard");
-const loginError = document.getElementById("loginError");
-
-const validUsername = "admin";
-const validPassword = "bpts2025!";
-
-let logoutTimer = null;
-
-function resetLogoutTimer() {
-  clearTimeout(logoutTimer);
-  logoutTimer = setTimeout(() => {
-    alert("Session expired. Logging out.");
-    logoutDev();
-  }, 15 * 60 * 1000);
-}
-
-function logoutDev() {
-  const form = devLoginForm.querySelector("form");
-  if (form) form.reset();
-  devLoginForm.classList.remove("hidden");
-  devDashboard.classList.add("hidden");
-  loginError.classList.add("hidden");
-  clearTimeout(logoutTimer);
-}
-
-function handleDevLogin(e) {
-  e.preventDefault();
-  const user = document.getElementById("devUsername").value;
-  const pass = document.getElementById("devPassword").value;
-
-  if (user === validUsername && pass === validPassword) {
-    devLoginForm.classList.add("hidden");
-    devDashboard.classList.remove("hidden");
-    loginError.classList.add("hidden");
-    resetLogoutTimer();
-  } else {
-    loginError.classList.remove("hidden");
-  }
-  return false;
-}
-
-["click", "mousemove", "keydown", "scroll"].forEach(evt =>
-  document.addEventListener(evt, () => {
-    if (!devDashboard.classList.contains("hidden")) {
-      resetLogoutTimer();
-    }
-  })
-);
-
-const defaultContentTemplates = {
-  qa: `<h3>QA Criteria Submission</h3><label for="qa-metric">Metric Name</label><input type="text" id="qa-metric" /><label for="qa-description">Description</label><textarea id="qa-description"></textarea><button onclick="alert('QA Submitted!')">Submit</button>`,
-  coaching: `<h3>Coaching Tips Form</h3><label for="coach-title">Tip Title</label><input type="text" id="coach-title" /><label for="coach-text">Tip Content</label><textarea id="coach-text"></textarea><button onclick="alert('Coaching Tip Saved!')">Save</button>`,
-  analytics: `<h3>Analytics Overview</h3><ul><li>📊 Weekly QA Pass Rate</li><li>📈 Coaching Effectiveness</li><li>⏱️ Avg Handling Time</li></ul>`,
-  issues: `<h3>Common Issues</h3><ul><li>📌 System Timeout</li><li>📌 Login Failure</li><li>📌 Report Not Loading</li></ul>`,
-  troubleshooting: `<h3>Troubleshooting Guide</h3><p>✅ Restart system</p><p>✅ Check connection</p><p>✅ Log errors if repeated</p>`
-};
-
-devTabs.forEach(tab => {
-  tab.addEventListener("click", () => {
-    devTabs.forEach(t => t.classList.remove("active"));
-    devTabContents.forEach(c => c.classList.add("hidden"));
-
-    tab.classList.add("active");
-    const target = tab.getAttribute("data-devtab");
-    const content = document.getElementById(target);
-
-    if (content) {
-      content.classList.remove("hidden");
-      if (!content.innerHTML.trim() && defaultContentTemplates[target]) {
-        content.innerHTML = defaultContentTemplates[target];
-      }
-    }
-  });
-});
-
-// ------------------------
-// 🔹 Email Templates
+// 🔹 Email Templates Loader
 // ------------------------
 async function loadEmailTemplates() {
   const container = document.getElementById("emailTemplateList");
   container.innerHTML = "<p>Loading templates...</p>";
+
   const data = await fetchJSON("email/templates.json");
-  if (!data || typeof data !== "object") {
+  if (!Array.isArray(data)) {
     container.innerHTML = "<p>❌ Failed to load email templates.</p>";
     return;
   }
 
-  const sortedCategories = Object.keys(data).sort();
+  // Group templates by category
+  const grouped = {};
+  data.forEach(tpl => {
+    const cat = tpl.category || "other";
+    if (!grouped[cat]) grouped[cat] = [];
+    grouped[cat].push(tpl);
+  });
+
+  const sortedCategories = Object.keys(grouped).sort();
   container.innerHTML = "";
 
   sortedCategories.forEach(cat => {
     const section = document.createElement("div");
     section.className = "email-category";
+
     const catName = cat.charAt(0).toUpperCase() + cat.slice(1);
     section.innerHTML = `<h3>📁 ${catName}</h3>`;
 
-    data[cat].forEach(tpl => {
+    grouped[cat].forEach(tpl => {
       const div = document.createElement("div");
       div.className = "email-template";
       div.innerHTML = `
@@ -335,3 +265,47 @@ async function loadContacts() {
     container.appendChild(div);
   });
 }
+
+
+// ------------------------
+// 🔹 Email Template Modal
+// ------------------------
+
+function showEmailTemplateModal(filename) {
+  const modal = document.getElementById("emailTemplateModal");
+  const modalTitle = document.getElementById("templateTitle");
+  const modalCategory = document.getElementById("templateCategory");
+  const modalBody = document.getElementById("templateBody");
+
+  modalTitle.textContent = "Loading...";
+  modalBody.innerHTML = "<p>Loading template...</p>";
+  modal.classList.remove("hidden");
+
+  fetchJSON(`email/${filename}`).then(data => {
+    if (!data || !data.body) {
+      modalTitle.textContent = "Template Not Found";
+      modalBody.innerHTML = "<p>❌ Failed to load template.</p>";
+      modalCategory.textContent = "";
+      return;
+    }
+
+    modalTitle.textContent = data.title || "Email Template";
+    modalCategory.textContent = data.category || "—";
+    modalBody.innerHTML = `<pre style="white-space: pre-wrap;">${data.body}</pre>`;
+  });
+}
+
+// ------------------------
+// 🔹 Email Template Modal Close
+// ------------------------
+document.getElementById("closeEmailModal").addEventListener("click", () => {
+  document.getElementById("emailTemplateModal").classList.add("hidden");
+});
+
+document.addEventListener("click", function (e) {
+  const modal = document.getElementById("emailTemplateModal");
+  if (e.target === modal) {
+    modal.classList.add("hidden");
+  }
+});
+
