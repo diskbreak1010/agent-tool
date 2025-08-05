@@ -28,6 +28,10 @@ body.dark {
   box-sizing: border-box;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   background-color: var(--bg-color);
@@ -35,7 +39,7 @@ body {
   transition: all 0.3s ease;
 }
 
-/* TOP BAR */
+/* ---------------- TOP BAR ---------------- */
 .top-bar {
   display: flex;
   justify-content: space-between;
@@ -44,14 +48,6 @@ body {
   background-color: var(--card-bg);
   border-bottom: 1px solid var(--border);
   box-shadow: var(--shadow);
-}
-
-.logo-text {
-  font-size: 1.8rem;
-  font-weight: 800;
-  letter-spacing: 1px;
-  color: var(--text-color);
-  text-transform: uppercase;
 }
 
 .logo-container {
@@ -65,6 +61,14 @@ body {
   height: 40px;
   object-fit: contain;
   border-radius: 8px;
+}
+
+.logo-text {
+  font-size: 1.8rem;
+  font-weight: 800;
+  letter-spacing: 1px;
+  color: var(--text-color);
+  text-transform: uppercase;
 }
 
 .nav-buttons {
@@ -85,9 +89,11 @@ body {
 }
 
 .nav-link:hover,
-.nav-link.active {
+.nav-link.active,
+.nav-link:focus {
   background-color: var(--accent);
   color: white;
+  outline: none;
 }
 
 .theme-toggle {
@@ -98,14 +104,14 @@ body {
   color: var(--text-color);
 }
 
-/* LAYOUT */
+/* ---------------- LAYOUT ---------------- */
 .layout {
   display: flex;
   height: calc(100vh - 72px);
   overflow: hidden;
 }
 
-/* SIDEBAR */
+/* ---------------- SIDEBAR ---------------- */
 .sidebar {
   width: 400px;
   background-color: var(--card-bg);
@@ -150,8 +156,10 @@ body {
   padding: 0.3rem 0;
 }
 
-.dropdown li:hover {
+.dropdown li:hover,
+.dropdown li:focus {
   color: var(--accent);
+  outline: none;
 }
 
 .sidebar-content-panel {
@@ -184,7 +192,7 @@ body {
   color: var(--text-color);
 }
 
-/* MAIN PANEL */
+/* ---------------- MAIN PANEL ---------------- */
 .main-panel {
   flex: 1;
   padding: 2rem;
@@ -199,7 +207,7 @@ body {
   display: block;
 }
 
-/* FORM */
+/* ---------------- FORM ---------------- */
 form {
   background-color: var(--card-bg);
   padding: 2rem;
@@ -241,6 +249,23 @@ input:focus {
   box-shadow: 0 0 0 2px rgba(4, 169, 109, 0.2);
 }
 
+/* ---------------- BUTTONS ---------------- */
+button {
+  background-color: var(--button-bg);
+  color: var(--button-text);
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 0.95rem;
+  transition: background-color 0.2s ease;
+}
+
+button:hover {
+  opacity: 0.9;
+}
+
 .copy-block {
   display: flex;
   gap: 0.5rem;
@@ -258,40 +283,7 @@ input:focus {
   overflow-x: auto;
 }
 
-button {
-  background-color: var(--button-bg);
-  color: var(--button-text);
-  border: none;
-  padding: 0.5rem 1rem;
-  border-radius: 8px;
-  cursor: pointer;
-  font-weight: 600;
-  font-size: 0.95rem;
-  transition: background-color 0.2s ease;
-}
-
-button:hover {
-  opacity: 0.9;
-}
-
-.hidden {
-  display: none;
-}
-
-/* SEARCH BAR */
-.search-bar {
-  padding: 0.75rem;
-  width: 100%;
-  max-width: 500px;
-  font-size: 1rem;
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  margin-bottom: 1.5rem;
-  background-color: var(--input-bg);
-  color: var(--text-color);
-}
-
-/* SCHEDULE TABLE */
+/* ---------------- SCHEDULE ---------------- */
 .schedule-container {
   background-color: var(--card-bg);
   padding: 1.5rem;
@@ -299,11 +291,6 @@ button:hover {
   box-shadow: var(--shadow);
   overflow-x: auto;
   max-width: 100%;
-}
-
-.schedule-container h2 {
-  margin-bottom: 1rem;
-  text-align: center;
 }
 
 .schedule-table {
@@ -336,7 +323,160 @@ button:hover {
   margin-top: 1rem;
 }
 
-/* ========== DEVMODE ========== */
+/* ---------------- KNOWLEDGE BASE ---------------- */
+.kb-search {
+  padding: 0.75rem 1rem;
+  width: 100%;
+  max-width: 500px;
+  font-size: 1rem;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  margin-bottom: 1.5rem;
+  background-color: var(--input-bg);
+  color: var(--text-color);
+}
+
+.kb-article-title {
+  background: var(--card-bg);
+  padding: 1rem 1.25rem;
+  margin-bottom: 1rem;
+  border-left: 4px solid var(--accent);
+  border-radius: 6px;
+  cursor: pointer;
+  box-shadow: var(--shadow);
+  transition: background 0.3s ease;
+  font-weight: 600;
+}
+
+.kb-article-title:hover,
+.kb-article-title:focus {
+  background: var(--input-bg);
+  outline: none;
+}
+
+#kbArticleContainer {
+  background: var(--card-bg);
+  padding: 1.5rem 1.25rem;
+  margin-top: 1.5rem;
+  border-left: 4px solid var(--accent);
+  border-radius: 6px;
+  box-shadow: var(--shadow);
+}
+
+#kbArticleContainer h2 {
+  margin-bottom: 0.5rem;
+  color: var(--accent);
+}
+
+#kbArticleContainer p {
+  margin-bottom: 0.75rem;
+  line-height: 1.6;
+  font-size: 0.95rem;
+}
+
+/* ---------------- EMAIL TEMPLATES ---------------- */
+#emailTemplateList {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.email-template {
+  background-color: var(--card-bg);
+  padding: 1rem;
+  border: 1px solid var(--border);
+  border-left: 4px solid var(--accent);
+  border-radius: 10px;
+  cursor: pointer;
+  box-shadow: var(--shadow);
+  transition: transform 0.1s ease-in-out;
+}
+
+.email-template:hover,
+.email-template:focus {
+  transform: translateY(-2px);
+  outline: none;
+}
+
+/* Modal */
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modal.hidden {
+  display: none;
+}
+
+.modal-content {
+  background-color: var(--card-bg);
+  padding: 2rem;
+  border-radius: 16px;
+  box-shadow: var(--shadow);
+  max-width: 700px;
+  width: 90%;
+  position: relative;
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+.modal-content h2 {
+  font-size: 1.4rem;
+  color: var(--accent);
+}
+
+.modal-content .copy-text {
+  margin-bottom: 1rem;
+  white-space: pre-wrap;
+}
+
+.close {
+  position: absolute;
+  top: 12px;
+  right: 16px;
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: var(--text-color);
+  cursor: pointer;
+}
+
+/* ---------------- CONTACT DIRECTORY ---------------- */
+#contactList {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.contact-card {
+  background-color: var(--card-bg);
+  border: 1px solid var(--border);
+  border-left: 4px solid var(--accent);
+  border-radius: 10px;
+  padding: 1rem;
+  box-shadow: var(--shadow);
+  cursor: pointer;
+}
+
+.contact-card h4 {
+  margin: 0 0 0.5rem;
+  font-size: 1.1rem;
+  color: var(--accent);
+}
+
+.contact-card p {
+  margin: 0.25rem 0;
+  font-size: 0.95rem;
+}
+
+/* ---------------- DEVMODE ---------------- */
 #devLoginForm {
   background-color: var(--card-bg);
   padding: 2rem;
@@ -346,21 +486,15 @@ button:hover {
   margin: 0 auto;
 }
 
-#devLoginForm h2 {
+.login-error {
+  color: red;
+  margin-top: 1rem;
+  font-size: 0.9rem;
   text-align: center;
-  margin-bottom: 1rem;
-}
-
-.devmode-topbar {
-  display: flex;
-  gap: 0.75rem;
-  margin-bottom: 1rem;
-  flex-wrap: wrap;
 }
 
 .dev-tab {
   padding: 0.5rem 1rem;
-  border: none;
   background-color: var(--input-bg);
   color: var(--text-color);
   border-radius: 8px;
@@ -392,30 +526,8 @@ button:hover {
   display: block;
 }
 
-/* 🔲 DevMode Tab Content Form Style */
-.dev-tab-content {
-  background: rgba(255, 255, 255, 0.95);
-  border: 2px solid #ccc;
-  border-radius: 12px;
-  padding: 2rem;
-  margin-top: 1.5rem;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-  max-width: 800px;
-  width: 100%;
-}
-
-.dev-tab-content.hidden {
-  display: none;
-}
-
+.dev-tab-content label,
 .dev-tab-content h3 {
-  font-size: 1.4rem;
-  margin-bottom: 1rem;
-}
-
-.dev-tab-content label {
-  display: block;
-  margin-top: 1rem;
   font-weight: 600;
 }
 
@@ -429,29 +541,23 @@ button:hover {
   background: #fff;
 }
 
-.dev-tab-content button {
-  margin-top: 1.5rem;
-  padding: 0.6rem 1.2rem;
-  background: #0044cc;
-  color: #fff;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
+/* ---------------- UTILITIES ---------------- */
+.hidden {
+  display: none;
 }
 
-.dev-tab-content button:hover {
-  background: #003399;
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
 }
 
-
-.login-error {
-  color: red;
-  margin-top: 1rem;
-  font-size: 0.9rem;
-  text-align: center;
-}
-
-/* RESPONSIVE */
+/* ---------------- RESPONSIVE ---------------- */
 @media (max-width: 768px) {
   .layout {
     flex-direction: column;
@@ -480,63 +586,20 @@ button:hover {
   }
 }
 
-/* 🔍 KNOWLEDGE BASE STYLES */
-.kb-search {
-  padding: 0.75rem 1rem;
-  width: 100%;
-  max-width: 500px;
-  font-size: 1rem;
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  margin-bottom: 1.5rem;
-  background-color: var(--input-bg);
-  color: var(--text-color);
+.email-category {
+  margin-bottom: 2rem;
 }
 
-.kb-article-title {
-  background: var(--card-bg);
-  padding: 1rem 1.25rem;
-  margin-bottom: 1rem;
-  border-left: 4px solid var(--accent);
-  border-radius: 6px;
-  cursor: pointer;
-  box-shadow: var(--shadow);
-  transition: background 0.3s ease;
-  font-weight: 600;
-}
-
-.kb-article-title:hover {
-  background: var(--input-bg);
-}
-
-#kbArticleContainer {
-  background: var(--card-bg);
-  padding: 1.5rem 1.25rem;
-  margin-top: 1.5rem;
-  border-left: 4px solid var(--accent);
-  border-radius: 6px;
-  box-shadow: var(--shadow);
-}
-
-#kbArticleContainer h2 {
-  margin-top: 0;
+.email-category h3 {
   margin-bottom: 0.5rem;
-  color: var(--accent);
+  color: #444;
+  font-size: 1.2em;
 }
 
-#kbArticleContainer p {
-  margin-bottom: 0.75rem;
-  line-height: 1.6;
-  font-size: 0.95rem;
-}
-
-.kb-tag {
-  background-color: #e1f3ff;
-  color: var(--accent);
-  padding: 0.25rem 0.5rem;
-  font-size: 0.75rem;
-  font-weight: 600;
+.email-template {
+  background: #f9f9f9;
+  padding: 10px;
+  margin-bottom: 10px;
+  border-left: 4px solid #ccc;
   border-radius: 4px;
-  margin-right: 0.5rem;
-  display: inline-block;
 }
