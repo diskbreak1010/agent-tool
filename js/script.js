@@ -431,7 +431,8 @@ function toggleTheme() {
   localStorage.setItem("theme", isDark ? "dark" : "light");
 }
 
-// 🔹 Load Sidebar from JSON
+// ⛳ START: Dynamic Sidebar Renderer
+// Load and render sidebar based on nested JSON structure
 async function loadSidebar() {
   const data = await fetchJSON("sidebarData.json");
   if (!data) return;
@@ -439,10 +440,10 @@ async function loadSidebar() {
   const sidebar = document.querySelector(".sidebar");
   const sidebarContent = document.getElementById("sidebarContent");
 
-  // Clear existing items (keep sidebarContent & clear button)
+  // Remove any previously loaded sections
   sidebar.querySelectorAll(".sidebar-section").forEach(s => s.remove());
 
-  Object.entries(data).forEach(([sectionTitle, items], index) => {
+  Object.entries(data).forEach(([sectionTitle, sectionItems], index) => {
     const section = document.createElement("div");
     section.className = "sidebar-section";
 
@@ -457,18 +458,60 @@ async function loadSidebar() {
     ul.className = "dropdown";
     ul.id = dropdownId;
 
-    items.forEach(item => {
-      const li = document.createElement("li");
-      li.textContent = item.name;
-      li.onclick = () => {
-        document.querySelectorAll(".dropdown li").forEach(i => i.classList.remove("active"));
-        li.classList.add("active");
-        sidebarContent.innerHTML = `<div><h4>${item.name}</h4><p>${item.content}</p></div>`;
-      };
-      ul.appendChild(li);
+    Object.entries(sectionItems).forEach(([key, value]) => {
+      ul.appendChild(createSidebarItem(key, value));
     });
 
     section.appendChild(ul);
     sidebar.insertBefore(section, sidebarContent);
   });
 }
+
+// Recursively create sidebar items for nested objects
+function createSidebarItem(key, value) {
+  const li = document.createElement("li");
+  const hasChildren = typeof value === "object" && value !== null;
+
+  const label = document.createElement("span");
+  label.textContent = key;
+  li.appendChild(label);
+
+  if (!hasChildren) {
+    // If it's a content item (string), clicking shows content
+    li.onclick = (e) => {
+      e.stopPropagation();
+      document.querySelectorAll(".dropdown li").forEach(i => i.classList.remove("active"));
+      li.classList.add("active");
+      document.getElementById("sidebarContent").innerHTML = `
+        <div><h4>${key}</h4><p>${value}</p></div>`;
+    };
+  } else {
+    // If it has children, make the entire li toggleable
+    const arrow = document.createElement("span");
+    arrow.textContent = "▶";
+    arrow.style.float = "right";
+    arrow.style.pointerEvents = "none"; // So only <li> click counts
+    li.appendChild(arrow);
+
+    const nestedList = document.createElement("ul");
+    nestedList.className = "dropdown";
+    nestedList.style.display = "none";
+
+    Object.entries(value).forEach(([childKey, childValue]) => {
+      nestedList.appendChild(createSidebarItem(childKey, childValue));
+    });
+
+    li.appendChild(nestedList);
+
+    li.onclick = (e) => {
+      e.stopPropagation();
+      const isVisible = nestedList.style.display === "block";
+      nestedList.style.display = isVisible ? "none" : "block";
+      arrow.textContent = isVisible ? "▶" : "▼";
+    };
+  }
+
+  return li;
+}
+
+// ✅ END: Dynamic Sidebar Renderer
