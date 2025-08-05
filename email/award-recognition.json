@@ -1,5 +1,5 @@
 {
   "title": "Award Recognition Notice",
-  "tags": ["award", "recognition", "employee", "achievement"],
-  "content": "Dear [Recipient],\n\nCongratulations! We are proud to inform you that you have been selected for the [Award Name] in recognition of your outstanding performance and dedication.\n\nYour efforts have significantly contributed to our team's success, and this award is a reflection of your commitment and excellence.\n\nWe will be holding a brief awarding ceremony on [Date] at [Time], and we would be honored to have you present.\n\nIf you have any questions, feel free to reach out.\n\nBest regards,\n[Your Name]\n[Your Position]"
+  "category": "award",
+  "body": "Dear [Recipient],\n\nCongratulations! We are proud to inform you that you have been selected for the [Award Name] in recognition of your outstanding performance and dedication.\n\nYour efforts have significantly contributed to our team's success, and this award is a reflection of your commitment and excellence.\n\nWe will be holding a brief awarding ceremony on [Date] at [Time], and we would be honored to have you present.\n\nIf you have any questions, feel free to reach out.\n\nBest regards,\n[Your Name]\n[Your Position]"
 }
