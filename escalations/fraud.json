@@ -1,0 +1,17 @@
+{
+  "title": "Fraud Escalation",
+  "summary": "Steps to escalate fraud-related cases properly.",
+  "process": [
+    "Put Case Macro and Fraud Escalation Macro",
+    "Tick the 'Escalated' box",
+    "Set 'Reason Code' to 'Process with another department'",
+    "Change 'Who needs to work on this ticket' to 'Fraud'",
+    "Set Status to Open"
+  ],
+  "reEscalation": [
+    "Untick the 'Escalated' box",
+    "Change 'Who needs to work on this ticket' to 'English'",
+    "Set Status to New",
+    "Follow escalation process above"
+  ]
+}
