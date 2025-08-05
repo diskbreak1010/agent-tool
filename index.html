@@ -16,8 +16,8 @@
 
     <div class="nav-buttons">
       <button class="nav-link active" data-section="home">Home</button>
-      <button class="nav-link" data-section="knowledge">Knowledge Base</button>
-      <button class="nav-link" data-section="resolutions">Resolutions</button>
+      <button class="nav-link" data-section="templates">Templates</button>
+      <button class="nav-link" data-section="contacts">Contacts</button>
       <button class="nav-link" data-section="escalations">Escalations</button>
       <button class="nav-link" data-section="schedules">Schedules</button>
       <button class="nav-link" data-section="devmode">DevMode</button>
@@ -54,7 +54,7 @@
       </div>
     </aside>
 
-    <!-- MAIN CONTENT -->
+    <!-- MAIN PANEL -->
     <main class="main-panel">
       <!-- HOME -->
       <section id="home" class="main-section visible">
@@ -92,17 +92,28 @@
         </form>
       </section>
 
-      <!-- 🆕 KNOWLEDGE BASE SECTION -->
-      <section id="knowledge" class="main-section">
-        <input type="text" placeholder="Search Knowledge Base..." class="search-bar" oninput="filterKBArticles(this.value)" />
-        <div id="kbList"></div>
-        <div id="kbArticleContainer" class="hidden"></div>
+      <!-- EMAIL TEMPLATES SECTION -->
+      <section id="templates" class="main-section">
+        <input type="text" placeholder="Search Email Templates..." class="search-bar" oninput="filterEmailTemplates(this.value)" />
+        <div id="emailTemplateList"></div>
+
+        <!-- Modal -->
+        <div id="emailTemplateModal" class="modal hidden">
+          <div class="modal-content">
+            <span id="closeEmailModal" class="close">×</span>
+            <h2 id="templateTitle"></h2>
+            <p><strong>Category:</strong> <span id="templateCategory"></span></p>
+            <div id="templateBody" class="copy-text"></div>
+            <button onclick="copyText('templateBody')">Copy Template</button>
+          </div>
+        </div>
       </section>
 
-      <!-- RESOLUTIONS -->
-      <section id="resolutions" class="main-section">
-        <input type="text" placeholder="Search Resolutions..." class="search-bar" />
-        <p>This is where saved or common resolutions will appear.</p>
+      <!-- CONTACTS SECTION -->
+      <section id="contacts" class="main-section">
+        <h2>Contact Directory</h2>
+        <p>This contains contact information of OTAs and partners.</p>
+        <div id="contactList"></div>
       </section>
 
       <!-- ESCALATIONS -->
@@ -119,7 +130,7 @@
         </div>
       </section>
 
-      <!-- 🔐 DEVMODE -->
+      <!-- DEVELOPER MODE -->
       <section id="devmode" class="main-section">
         <div id="devLoginForm">
           <h2>Enter Developer Mode</h2>
@@ -161,4 +172,3 @@
   <script src="js/script.js"></script>
 </body>
 </html>
-
