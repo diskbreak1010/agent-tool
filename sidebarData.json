@@ -1,0 +1,30 @@
+{
+  "Products": [
+    {
+      "name": "Business Advantage",
+      "content": "Business Advantage gives visibility and reporting for business listings and placements."
+    },
+    {
+      "name": "Sponsored Placement",
+      "content": "Ensures higher placement in search results for relevant customer queries."
+    },
+    {
+      "name": "Performance Insights",
+      "content": "Provides detailed analytics about customer interactions."
+    }
+  ],
+  "Information": [
+    {
+      "name": "Terms and Policies",
+      "content": "Standard agreements, privacy policy, refund terms."
+    },
+    {
+      "name": "Account Security",
+      "content": "Includes MFA, recovery options, and access logs."
+    },
+    {
+      "name": "Billing Info",
+      "content": "Shows payment history and current billing settings."
+    }
+  ]
+}
