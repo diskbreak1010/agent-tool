@@ -27,8 +27,94 @@ navLinks.forEach(link => {
     if (targetId === "schedules") loadSchedules();
     if (targetId === "templates") loadEmailTemplates();
     if (targetId === "contacts") loadContacts();
+    if (targetId === "escalations") loadEscalations();
   });
 });
+
+// ====================================================
+// 🔹 ESCALATIONS LOADER + MODAL HANDLER
+// ====================================================
+async function loadEscalations() {
+  const container = document.getElementById("escalationList");
+  container.innerHTML = "<p>Loading escalation guides...</p>";
+
+  const data = await fetchJSON("escalations/index.json");
+  if (!data || !Array.isArray(data)) {
+    container.innerHTML = "<p>❌ Failed to load escalation list.</p>";
+    return;
+  }
+
+  container.innerHTML = "";
+  data.forEach(item => {
+    const div = document.createElement("div");
+    div.className = "email-template";
+    div.innerHTML = `
+      <h4>${item.title}</h4>
+      <p>${item.summary}</p>
+      <button onclick="showEscalationModal('${item.filename}')">View</button>
+    `;
+    container.appendChild(div);
+  });
+}
+
+async function showEscalationModal(filename) {
+  const modal = document.getElementById("escalationModal");
+  const title = document.getElementById("escalationModalTitle");
+  const summary = document.getElementById("escalationModalSummary");
+  const stepsList = document.getElementById("escalationStepsList");
+  const reStepsList = document.getElementById("reEscalationStepsList");
+
+  title.textContent = "Loading...";
+  summary.textContent = "";
+  stepsList.innerHTML = "";
+  reStepsList.innerHTML = "";
+  modal.classList.remove("hidden");
+
+  const data = await fetchJSON(`escalations/${filename}`);
+  if (!data) {
+    title.textContent = "❌ Failed to load escalation data";
+    return;
+  }
+
+  title.textContent = data.title || "Escalation Guide";
+  summary.textContent = data.summary || "";
+
+  (data.process || []).forEach(step => {
+    const li = document.createElement("li");
+    li.textContent = step;
+    stepsList.appendChild(li);
+  });
+
+  (data.reEscalation || []).forEach(step => {
+    const li = document.createElement("li");
+    li.textContent = step;
+    reStepsList.appendChild(li);
+  });
+}
+
+// ========================
+// 🔹 Escalation Modal Close
+// ========================
+document.getElementById("closeEscalationModal").addEventListener("click", () => {
+  document.getElementById("escalationModal").classList.add("hidden");
+});
+
+document.addEventListener("click", function (e) {
+  const modal = document.getElementById("escalationModal");
+  if (e.target === modal) {
+    modal.classList.add("hidden");
+  }
+});
+
+function filterEscalations(searchTerm) {
+  const allTemplates = document.querySelectorAll('#escalationList .email-template');
+  allTemplates.forEach(template => {
+    const title = template.querySelector('h4')?.textContent.toLowerCase() || '';
+    const summary = template.querySelector('p')?.textContent.toLowerCase() || '';
+    const matches = title.includes(searchTerm.toLowerCase()) || summary.includes(searchTerm.toLowerCase());
+    template.style.display = matches ? 'block' : 'none';
+  });
+}
 
 // ------------------------
 // 🔹 Sidebar Dropdowns
@@ -345,3 +431,44 @@ function toggleTheme() {
   localStorage.setItem("theme", isDark ? "dark" : "light");
 }
 
+// 🔹 Load Sidebar from JSON
+async function loadSidebar() {
+  const data = await fetchJSON("sidebarData.json");
+  if (!data) return;
+
+  const sidebar = document.querySelector(".sidebar");
+  const sidebarContent = document.getElementById("sidebarContent");
+
+  // Clear existing items (keep sidebarContent & clear button)
+  sidebar.querySelectorAll(".sidebar-section").forEach(s => s.remove());
+
+  Object.entries(data).forEach(([sectionTitle, items], index) => {
+    const section = document.createElement("div");
+    section.className = "sidebar-section";
+
+    const dropdownId = `dropdown-${index}`;
+    const toggle = document.createElement("button");
+    toggle.className = "toggle-button";
+    toggle.innerHTML = `${sectionTitle} <span>▼</span>`;
+    toggle.onclick = () => toggleDropdown(dropdownId, toggle);
+    section.appendChild(toggle);
+
+    const ul = document.createElement("ul");
+    ul.className = "dropdown";
+    ul.id = dropdownId;
+
+    items.forEach(item => {
+      const li = document.createElement("li");
+      li.textContent = item.name;
+      li.onclick = () => {
+        document.querySelectorAll(".dropdown li").forEach(i => i.classList.remove("active"));
+        li.classList.add("active");
+        sidebarContent.innerHTML = `<div><h4>${item.name}</h4><p>${item.content}</p></div>`;
+      };
+      ul.appendChild(li);
+    });
+
+    section.appendChild(ul);
+    sidebar.insertBefore(section, sidebarContent);
+  });
+}
