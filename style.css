@@ -532,3 +532,8 @@ button:hover {
   font-size: 1.2em;
 }
 
+body.dark .email-category h3 {
+  color: #ffffff;
+}
+
+
