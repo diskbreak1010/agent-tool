@@ -326,3 +326,22 @@ function filterEmailTemplates(searchTerm) {
     category.style.display = visibleTemplates.length > 0 ? 'block' : 'none';
   });
 }
+
+// ------------------------
+// 🔹 Theme Toggle
+// ------------------------
+
+function initThemeToggle() {
+  const savedTheme = localStorage.getItem("theme");
+  if (savedTheme === "dark") {
+    document.documentElement.classList.add("dark");
+  } else {
+    document.documentElement.classList.remove("dark");
+  }
+}
+
+function toggleTheme() {
+  const isDark = document.documentElement.classList.toggle("dark");
+  localStorage.setItem("theme", isDark ? "dark" : "light");
+}
+
