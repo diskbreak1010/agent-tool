@@ -7,6 +7,11 @@ const devTabs = document.querySelectorAll(".dev-tab");
 const devTabContents = document.querySelectorAll(".dev-tab-content");
 
 // ------------------------
+// 🔹 Global Cache Fix
+// ------------------------
+const cache = {}; // ✅ Fix: Declare global cache object
+
+// ------------------------
 // 🔹 Top Navigation Tabs
 // ------------------------
 navLinks.forEach(link => {
@@ -244,49 +249,11 @@ function handleDevLogin(e) {
 );
 
 const defaultContentTemplates = {
-  qa: `
-    <h3>QA Criteria Submission</h3>
-    <label for="qa-metric">Metric Name</label>
-    <input type="text" id="qa-metric" placeholder="e.g. Call Handling" />
-
-    <label for="qa-description">Description</label>
-    <textarea id="qa-description" rows="4" placeholder="Describe the QA metric..."></textarea>
-
-    <button onclick="alert('QA Submitted!')">Submit</button>
-  `,
-  coaching: `
-    <h3>Coaching Tips Form</h3>
-    <label for="coach-title">Tip Title</label>
-    <input type="text" id="coach-title" placeholder="e.g. Empathy Tips" />
-
-    <label for="coach-text">Tip Content</label>
-    <textarea id="coach-text" rows="4" placeholder="Enter coaching content..."></textarea>
-
-    <button onclick="alert('Coaching Tip Saved!')">Save</button>
-  `,
-  analytics: `
-    <h3>Analytics Overview</h3>
-    <p>This section can show charts or stats from your dataset.</p>
-    <ul>
-      <li>📊 Weekly QA Pass Rate</li>
-      <li>📈 Coaching Effectiveness</li>
-      <li>⏱️ Avg Handling Time</li>
-    </ul>
-  `,
-  issues: `
-    <h3>Common Issues</h3>
-    <ul>
-      <li>📌 System Timeout</li>
-      <li>📌 Login Failure</li>
-      <li>📌 Report Not Loading</li>
-    </ul>
-  `,
-  troubleshooting: `
-    <h3>Troubleshooting Guide</h3>
-    <p>✅ Restart system</p>
-    <p>✅ Check connection</p>
-    <p>✅ Log errors if repeated</p>
-  `
+  qa: `<h3>QA Criteria Submission</h3><label for="qa-metric">Metric Name</label><input type="text" id="qa-metric" /><label for="qa-description">Description</label><textarea id="qa-description"></textarea><button onclick="alert('QA Submitted!')">Submit</button>`,
+  coaching: `<h3>Coaching Tips Form</h3><label for="coach-title">Tip Title</label><input type="text" id="coach-title" /><label for="coach-text">Tip Content</label><textarea id="coach-text"></textarea><button onclick="alert('Coaching Tip Saved!')">Save</button>`,
+  analytics: `<h3>Analytics Overview</h3><ul><li>📊 Weekly QA Pass Rate</li><li>📈 Coaching Effectiveness</li><li>⏱️ Avg Handling Time</li></ul>`,
+  issues: `<h3>Common Issues</h3><ul><li>📌 System Timeout</li><li>📌 Login Failure</li><li>📌 Report Not Loading</li></ul>`,
+  troubleshooting: `<h3>Troubleshooting Guide</h3><p>✅ Restart system</p><p>✅ Check connection</p><p>✅ Log errors if repeated</p>`
 };
 
 devTabs.forEach(tab => {
