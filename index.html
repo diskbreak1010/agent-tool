@@ -14,7 +14,7 @@
     }
   </script>
 </head>
-<body class="" onload="initThemeToggle()">
+<body class="" onload="initThemeToggle(); loadSidebar();">
   <!-- TOP BAR -->
   <div class="top-bar">
     <div class="logo-container">
@@ -137,10 +137,31 @@
       </section>
 
       <!-- ESCALATIONS -->
-      <section id="escalations" class="main-section">
-        <input type="text" placeholder="Search Escalations..." class="search-bar" />
-        <p>This is where escalation guides will appear.</p>
-      </section>
+<!-- ========================= -->
+<!-- 🔹 ESCALATIONS SECTION 🔹 -->
+<!-- ========================= -->
+<section id="escalations" class="main-section">
+  <input type="text" placeholder="Search Escalations..." class="search-bar" oninput="filterEscalations(this.value)" />
+  <div id="escalationList" class="email-category"></div>
+</section>
+
+<!-- ================================ -->
+<!-- 🔹 ESCALATION MODAL (POPUP) 🔹 -->
+<!-- ================================ -->
+      
+<div id="escalationModal" class="modal hidden">
+  <div class="modal-content">
+    <span id="closeEscalationModal" class="close-modal">&times;</span>
+    <h3 id="escalationModalTitle">Loading...</h3>
+    <p id="escalationModalSummary"></p>
+
+    <h4>📌 Process Steps:</h4>
+    <ul id="escalationStepsList"></ul>
+
+    <h4>🔁 Re-Escalation Steps:</h4>
+    <ul id="reEscalationStepsList"></ul>
+  </div>
+</div>
 
       <!-- SCHEDULES -->
       <section id="schedules" class="main-section">
