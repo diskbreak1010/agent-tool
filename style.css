@@ -10,7 +10,7 @@
   --shadow: 0 8px 24px rgba(0, 0, 0, 0.05);
 }
 
-body.dark {
+.dark {
   --bg-color: #121212;
   --card-bg: #1e1e1e;
   --text-color: #f0f0f0;
