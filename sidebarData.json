@@ -1,30 +1,55 @@
 {
-  "Products": [
-    {
-      "name": "Business Advantage",
-      "content": "Business Advantage gives visibility and reporting for business listings and placements."
+  "Products": {
+    "Accommodation": {
+      "Business Advantage": {
+        "Billing Information": "Details about billing setup for this product.",
+        "Features": "Overview of features included.",
+        "Contract": "Contract terms and agreement details.",
+        "Cancellation": "How to cancel this product."
+      },
+      "Sponsored Placement": {
+        "Billing Information": "Details about billing setup for this product.",
+        "Features": "Overview of features included.",
+        "Contract": "Contract terms and agreement details.",
+        "Cancellation": "How to cancel this product."
+      }
     },
-    {
-      "name": "Sponsored Placement",
-      "content": "Ensures higher placement in search results for relevant customer queries."
-    },
-    {
-      "name": "Performance Insights",
-      "content": "Provides detailed analytics about customer interactions."
+    "Restaurant": {
+      "Tripadvisor Premium": {
+        "Billing Information": "Details about billing setup for this product.",
+        "Features": "Overview of features included.",
+        "Contract": "Contract terms and agreement details.",
+        "Cancellation": "How to cancel this product."
+      },
+      "Tripadvisor Ads": {
+        "Billing Information": "Details about billing setup for this product.",
+        "Features": "Overview of features included.",
+        "Contract": "Contract terms and agreement details.",
+        "Cancellation": "How to cancel this product."
+      }
     }
-  ],
-  "Information": [
-    {
-      "name": "Terms and Policies",
-      "content": "Standard agreements, privacy policy, refund terms."
+  },
+  "Information": {
+    "Listing": {
+      "How to get listed": "Guide to getting listed on the platform.",
+      "Turn around time": "Estimated time to get listed."
     },
-    {
-      "name": "Account Security",
-      "content": "Includes MFA, recovery options, and access logs."
+    "Reviews": {
+      "How to dispute": "Steps to dispute a review.",
+      "How to write": "Instructions for writing reviews.",
+      "How to report management response": "Guide for reporting inappropriate responses.",
+      "Fraud related reviews": "Handling and escalation of fake/fraudulent reviews."
     },
-    {
-      "name": "Billing Info",
-      "content": "Shows payment history and current billing settings."
+    "Awards": {
+      "Criteria": "Eligibility and evaluation criteria.",
+      "Did not win": "Explanation for not receiving the award.",
+      "Delivery": "How and when awards are delivered.",
+      "Did not received": "Steps to take if award was not received."
+    },
+    "Search and Ranking": {
+      "Pop Index": "How popularity index works.",
+      "Google/Search Result (Not appearing)": "What to do if listing doesn’t show up in search.",
+      "Feature": "Search-related features and how they affect rankings."
     }
-  ]
+  }
 }
