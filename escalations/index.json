@@ -1,0 +1,12 @@
+[
+  {
+    "filename": "fraud.json",
+    "title": "Fraud Escalation",
+    "summary": "Steps to escalate fraud-related cases properly."
+  },
+  {
+    "filename": "billing.json",
+    "title": "Billing Escalation",
+    "summary": "Billing disputes escalation process."
+  }
+]
