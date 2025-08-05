@@ -323,57 +323,6 @@ button:hover {
   margin-top: 1rem;
 }
 
-/* ---------------- KNOWLEDGE BASE ---------------- */
-.kb-search {
-  padding: 0.75rem 1rem;
-  width: 100%;
-  max-width: 500px;
-  font-size: 1rem;
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  margin-bottom: 1.5rem;
-  background-color: var(--input-bg);
-  color: var(--text-color);
-}
-
-.kb-article-title {
-  background: var(--card-bg);
-  padding: 1rem 1.25rem;
-  margin-bottom: 1rem;
-  border-left: 4px solid var(--accent);
-  border-radius: 6px;
-  cursor: pointer;
-  box-shadow: var(--shadow);
-  transition: background 0.3s ease;
-  font-weight: 600;
-}
-
-.kb-article-title:hover,
-.kb-article-title:focus {
-  background: var(--input-bg);
-  outline: none;
-}
-
-#kbArticleContainer {
-  background: var(--card-bg);
-  padding: 1.5rem 1.25rem;
-  margin-top: 1.5rem;
-  border-left: 4px solid var(--accent);
-  border-radius: 6px;
-  box-shadow: var(--shadow);
-}
-
-#kbArticleContainer h2 {
-  margin-bottom: 0.5rem;
-  color: var(--accent);
-}
-
-#kbArticleContainer p {
-  margin-bottom: 0.75rem;
-  line-height: 1.6;
-  font-size: 0.95rem;
-}
-
 /* ---------------- EMAIL TEMPLATES ---------------- */
 #emailTemplateList {
   display: flex;
@@ -403,49 +352,39 @@ button:hover {
   position: fixed;
   top: 0;
   left: 0;
-  z-index: 1000;
-  width: 100%;
-  height: 100%;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.6);
   display: flex;
-  justify-content: center;
   align-items: center;
-  background-color: rgba(0, 0, 0, 0.5);
+  justify-content: flex-end; /* 👈 aligns modal to right */
+  z-index: 999;
+}
+
+.modal-content {
+  background: var(--card-bg);
+  color: var(--text-color);
+  padding: 20px;
+  width: 400px;
+  max-height: 90vh;
+  border-radius: 8px 0 0 8px; /* 👈 Rounded only on left side */
+  position: relative;
+  overflow-y: auto;
+  box-shadow: var(--shadow);
 }
 
 .modal.hidden {
   display: none;
 }
 
-.modal-content {
-  background-color: var(--card-bg);
-  padding: 2rem;
-  border-radius: 16px;
-  box-shadow: var(--shadow);
-  max-width: 700px;
-  width: 90%;
-  position: relative;
-  animation: fadeIn 0.3s ease-in-out;
-}
-
-.modal-content h2 {
-  font-size: 1.4rem;
-  color: var(--accent);
-}
-
-.modal-content .copy-text {
-  margin-bottom: 1rem;
-  white-space: pre-wrap;
-}
-
-.close {
+.close-modal {
   position: absolute;
-  top: 12px;
-  right: 16px;
-  font-size: 1.5rem;
-  font-weight: bold;
-  color: var(--text-color);
+  top: 10px;
+  right: 15px;
+  font-size: 24px;
   cursor: pointer;
 }
+
 
 /* ---------------- CONTACT DIRECTORY ---------------- */
 #contactList {
@@ -596,10 +535,3 @@ button:hover {
   font-size: 1.2em;
 }
 
-.email-template {
-  background: #f9f9f9;
-  padding: 10px;
-  margin-bottom: 10px;
-  border-left: 4px solid #ccc;
-  border-radius: 4px;
-}
