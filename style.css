@@ -537,4 +537,8 @@ button:hover {
   color: #ffffff;
 }
 
-
+/* ============ ESCALATION MODAL CUSTOM LIST ============ */
+#escalationModal ul {
+  padding-left: 1.2rem;
+  margin-bottom: 1rem;
+}
