@@ -1,0 +1,16 @@
+{
+  "title": "Moderation Escalation",
+  "summary": "Steps to escalate moderation-related cases properly.",
+  "process": [
+    "Put Macro for Email/Phone/Chat",
+    "Send 'Escalated Case Notification - Moderation' template",
+    "Apply the 'Moderation Escalation' Macro",
+    "Fill out the review ID, status, a brief explanation of the reason for escalation, and whether you need the case back to follow up with the customer on anything else",
+    "Tick the 'Escalated' box",
+    "Choose appropriate reason for escalation (e.g. Privacy Concern in Review)",
+    "Change 'Who needs to work on this ticket' to 'Content Moderation'",
+    "Fill out the Review ID field",
+    "Set Status to Open"
+  ],
+  "turnaroundTime": "3 - 5 business days"
+}
