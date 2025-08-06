@@ -338,20 +338,37 @@ async function loadContacts() {
     return;
   }
 
+  // Group contacts by category
+  const grouped = {};
+  contacts.forEach(contact => {
+    const cat = contact.category || "Others";
+    if (!grouped[cat]) grouped[cat] = [];
+    grouped[cat].push(contact);
+  });
+
   container.innerHTML = "";
-  contacts.forEach(c => {
-    const div = document.createElement("div");
-    div.className = "contact-card";
-    div.innerHTML = `
-      <h4>${c.name}</h4>
-      <p><strong>Email:</strong> <a href="mailto:${c.email}">${c.email}</a></p>
-      <p><strong>Phone:</strong> <a href="tel:${c.phone}">${c.phone}</a></p>
-      <p><strong>Department:</strong> ${c.department}</p>
-    `;
-    container.appendChild(div);
+
+  Object.entries(grouped).forEach(([category, contacts]) => {
+    const section = document.createElement("div");
+    section.innerHTML = `<h3 style="margin-top: 1rem; color: var(--accent);">${category}</h3>`;
+    
+    contacts.forEach(c => {
+      const card = document.createElement("div");
+      card.className = "contact-card";
+      card.innerHTML = `
+        <h4>${c.name}</h4>
+        ${c.email ? `<p><strong>Email:</strong> <a href="mailto:${c.email}">${c.email}</a></p>` : ""}
+        ${c.phone ? `<p><strong>Phone:</strong> <a href="tel:${c.phone}">${c.phone}</a></p>` : ""}
+        ${c.turnaround ? `<p><strong>Turnaround:</strong> ${c.turnaround}</p>` : ""}
+        ${c["follow-up"] ? `<p><strong>Follow-up:</strong> ${c["follow-up"]}</p>` : ""}
+
+      `;
+      section.appendChild(card);
+    });
+
+    container.appendChild(section);
   });
 }
-
 
 // ------------------------
 // 🔹 Email Template Modal
