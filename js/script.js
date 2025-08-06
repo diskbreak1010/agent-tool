@@ -2,6 +2,8 @@
 // 🔹 Global Cache
 // ------------------------
 const cache = {};
+const version = "?v=" + Date.now(); // cache-busting
+
 
 // ------------------------
 // 🔹 Element Selectors
@@ -14,6 +16,9 @@ const devTabContents = document.querySelectorAll(".dev-tab-content");
 // ------------------------
 // 🔹 Top Navigation Tabs
 // ------------------------
+// ------------------------
+// 🔹 Top Navigation Tabs
+// ------------------------
 navLinks.forEach(link => {
   link.addEventListener("click", () => {
     navLinks.forEach(l => l.classList.remove("active"));
@@ -21,13 +26,24 @@ navLinks.forEach(link => {
 
     const targetId = link.getAttribute("data-section");
     mainSections.forEach(section => section.classList.remove("visible"));
-    document.getElementById(targetId).classList.add("visible");
+    const section = document.getElementById(targetId);
+    if (section) section.classList.add("visible");
 
-    // Lazy load features
-    if (targetId === "schedules") loadSchedules();
-    if (targetId === "templates") loadEmailTemplates();
-    if (targetId === "contacts") loadContacts();
-    if (targetId === "escalations") loadEscalations();
+    // 🔁 Lazy load with cache-busting
+    const version = "?v=" + Date.now();  // Forces new load
+
+    if (targetId === "schedules") {
+      loadSchedules(version);
+    }
+    if (targetId === "templates") {
+      loadEmailTemplates(version);
+    }
+    if (targetId === "contacts") {
+      loadContacts(version);
+    }
+    if (targetId === "escalations") {
+      loadEscalations(version);
+    }
   });
 });
 
@@ -138,12 +154,12 @@ document.getElementById("clearSidebarBtn").addEventListener("click", () => {
 // ------------------------
 // 🔹 Resolution Tool
 // ------------------------
-const GITHUB_RAW_URL = "https://corsproxy.io/?https://raw.githubusercontent.com/diskbreak1010/agent-tool/main/";
+const GITHUB_RAW_URL = "https://raw.githubusercontent.com/diskbreak1010/agent-tool/main/";
 
 async function fetchJSON(path) {
   if (cache[path]) return cache[path];
   try {
-    const response = await fetch(GITHUB_RAW_URL + encodeURI(path));
+    const response = await fetch(GITHUB_RAW_URL + encodeURI(path) + version); // 💡 add version here
     if (!response.ok) throw new Error("Failed to fetch");
     const data = await response.json();
     cache[path] = data;
@@ -251,12 +267,12 @@ function copyText(id) {
 // ------------------------
 // 🔹 Schedule Loader
 // ------------------------
-const scheduleSheetURL = "https://corsproxy.io/?https://docs.google.com/spreadsheets/d/e/2PACX-1vStORPEOoTDKyZmhozoHdLi04RHk53TeuZU2o6_dl2mv9Fxy8hG5RGCesBmdEpN6e12eUZFPHbqDCps/pub?gid=435840210&single=true&output=csv";
+const scheduleSheetURL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vStORPEOoTDKyZmhozoHdLi04RHk53TeuZU2o6_dl2mv9Fxy8hG5RGCesBmdEpN6e12eUZFPHbqDCps/pub?gid=435840210&single=true&output=csv";
 
 async function loadSchedules() {
   const container = document.getElementById("schedules");
   try {
-    const res = await fetch(scheduleSheetURL);
+    const res = await fetch(scheduleSheetURL + version); // 💡 add version here
     const csv = await res.text();
     const rows = csv.trim().split("\n").map(row => row.split(","));
     const headers = rows[0];
