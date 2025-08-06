@@ -389,7 +389,7 @@ button:hover {
 /* ---------------- CONTACT DIRECTORY ---------------- */
 #contactList {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); /* ✅ More flexible */
   gap: 1.5rem;
   margin-top: 1rem;
 }
@@ -594,6 +594,44 @@ button:hover {
 .contact-card a:hover {
   text-decoration: underline;
 }
+
+.contact-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  flex-direction: row; /* horizontal */
+}
+
+.contact-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.contact-row .contact-card {
+  width: 250px; /* or your preferred fixed width */
+  flex: 0 0 auto;
+}
+
+.ota-container {
+  display: flex;
+  overflow-x: auto;
+  gap: 1rem;
+  padding-bottom: 1rem;
+  margin-bottom: 2rem;
+  border-bottom: 1px solid var(--accent-light);
+}
+
+.ota-card {
+  min-width: 250px;
+  flex-shrink: 0;
+  border: 1px solid var(--accent);
+  border-radius: 8px;
+  padding: 1rem;
+  background-color: var(--bg-light);
+}
+
 
 /* =======================================
 📱 DESKTOP-ONLY VIEW
