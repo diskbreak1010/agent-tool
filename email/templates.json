@@ -48,6 +48,12 @@
     "category": "ranking"
   },
   {
+  "title": "Feature Explanation for Owner",
+  "preview": "Learn how restaurant rankings like 'Featured' work on TripAdvisor...",
+  "filename": "Feature Explanation for Owner.json",
+  "category": "search and ranking"
+  },
+  {
     "title": "New listing Status - Explanation for Members",
     "preview": "Validation may take up to 6 days to be fully searchable...",
     "filename": "New listing Status - Explanation for Members.json",
