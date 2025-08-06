@@ -977,9 +977,40 @@ p {
   opacity: 0.9;
 }
 
+
 .form-row {
   display: flex;
   flex-direction: column;
   gap: 0.25rem;
   margin-bottom: 0.75rem; /* <-- adds spacing between dropdowns */
+}
+
+#dynamicFields {
+  margin-top: 0rem; /* ✅ Remove extra gap */
+  padding: 0;
+}
+
+form {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+label {
+  font-weight: 500;
+  margin-bottom: 0.25rem;
+}
+
+select, input {
+  padding: 0.4rem;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+
+/* Highlight active sidebar dropdown */
+.toggle-button.active-dropdown {
+  background-color: #d1fae5; /* light green background */
+  font-weight: bold;
+  color: #065f46; /* darker green text */
 }
