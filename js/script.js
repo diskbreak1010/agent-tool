@@ -63,12 +63,17 @@ async function loadEscalations() {
   container.innerHTML = "";
   data.forEach(item => {
     const div = document.createElement("div");
-    div.className = "email-template";
-    div.innerHTML = `
-      <h4>${item.title}</h4>
-      <p>${item.summary}</p>
-      <button onclick="showEscalationModal('${item.filename}')">View</button>
-    `;
+div.className = "escalation-card card-flex";
+div.innerHTML = `
+  <div class="card-text">
+    <h4>${item.title}</h4>
+    <p>${item.summary}</p>
+  </div>
+  <div class="card-actions">
+    <button onclick="showEscalationModal('${item.filename}')" class="card-button">View</button>
+  </div>
+`;
+
     container.appendChild(div);
   });
 }
@@ -123,23 +128,30 @@ document.addEventListener("click", function (e) {
 });
 
 function filterEscalations(searchTerm) {
-  const allTemplates = document.querySelectorAll('#escalationList .email-template');
+  const allTemplates = document.querySelectorAll('#escalationList .escalation-card');
   allTemplates.forEach(template => {
     const title = template.querySelector('h4')?.textContent.toLowerCase() || '';
     const summary = template.querySelector('p')?.textContent.toLowerCase() || '';
     const matches = title.includes(searchTerm.toLowerCase()) || summary.includes(searchTerm.toLowerCase());
-    template.style.display = matches ? 'block' : 'none';
+    template.style.display = matches ? 'flex' : 'none';
   });
 }
 
 // ------------------------
 // 🔹 Sidebar Dropdowns
 // ------------------------
-function toggleDropdown(id) {
+function toggleDropdown(id, button) {
   const dropdown = document.getElementById(id);
   const isOpen = dropdown.style.display === "flex";
+
+  // Close all dropdowns and remove active state from buttons
   document.querySelectorAll(".dropdown").forEach(d => (d.style.display = "none"));
-  dropdown.style.display = isOpen ? "none" : "flex";
+  document.querySelectorAll(".toggle-button").forEach(btn => btn.classList.remove("active-dropdown"));
+
+  if (!isOpen) {
+    dropdown.style.display = "flex";
+    button.classList.add("active-dropdown");
+  }
 }
 
 function showSidebarContent(content) {
@@ -330,11 +342,14 @@ async function loadEmailTemplates() {
     grouped[cat].forEach(tpl => {
       const div = document.createElement("div");
       div.className = "email-template";
-      div.innerHTML = `
-        <h4>${tpl.title}</h4>
-        <p>${tpl.preview}</p>
-        <button onclick="showEmailTemplateModal('${tpl.filename}')">View</button>
-      `;
+div.innerHTML = `
+  <div class="email-template-text">
+    <h4>${tpl.title}</h4>
+    <p>${tpl.preview}</p>
+  </div>
+  <button onclick="showEmailTemplateModal('${tpl.filename}')">View</button>
+`;
+
       section.appendChild(div);
     });
 
@@ -456,7 +471,7 @@ function filterEmailTemplates(searchTerm) {
     const title = template.querySelector('h4')?.textContent.toLowerCase() || '';
     const preview = template.querySelector('p')?.textContent.toLowerCase() || '';
     const matches = title.includes(searchTerm.toLowerCase()) || preview.includes(searchTerm.toLowerCase());
-    template.style.display = matches ? 'block' : 'none';
+    template.style.display = matches ? 'flex' : 'none';
   });
 
   // Hide category sections if all children are hidden
