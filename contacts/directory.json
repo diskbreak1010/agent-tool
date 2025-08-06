@@ -61,5 +61,13 @@
     "email": "support@hopper.com",
     "phone": "+1-833-HOPPER",
     "turnaround": "1-3 days"
-  }
+  },
+  {
+    "category": "Fraud",
+    "name": "Content Integrity Team",
+    "email": "contentintegrity@tripadvisor.com",
+    "phone": "",
+    "turnaround": "within 2 days"
+    "follow-up": "If you are not contacted within 2 days, we will re-escalate again. (3-5 days)"
+  }  
 ]
