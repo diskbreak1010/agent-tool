@@ -330,11 +330,17 @@ async function loadEmailTemplates() {
 // 🔹 Contacts Directory
 // ------------------------
 async function loadContacts() {
-  const container = document.getElementById("contactList");
-  container.innerHTML = "<p>Loading contacts...</p>";
+  const otaContainer = document.getElementById("otaGroup");
+  const otherContainer = document.getElementById("otherGroup");
+
+  otaContainer.innerHTML = "<p>Loading OTA contacts...</p>";
+  otherContainer.innerHTML = "<p>Loading other contacts...</p>";
+
   const contacts = await fetchJSON("contacts/directory.json");
+
   if (!contacts || !Array.isArray(contacts)) {
-    container.innerHTML = "<p>❌ Failed to load contacts.</p>";
+    otaContainer.innerHTML = "<p>❌ Failed to load contacts.</p>";
+    otherContainer.innerHTML = "";
     return;
   }
 
@@ -346,12 +352,29 @@ async function loadContacts() {
     grouped[cat].push(contact);
   });
 
-  container.innerHTML = "";
+  // OTA Section
+  otaContainer.innerHTML = "";
+  if (grouped.OTA) {
+    grouped.OTA.forEach(c => {
+      const card = document.createElement("div");
+      card.className = "contact-card";
+      card.innerHTML = `
+        <h4>${c.name}</h4>
+        ${c.email ? `<p><strong>Email:</strong> <a href="mailto:${c.email}">${c.email}</a></p>` : ""}
+        ${c.phone ? `<p><strong>Phone:</strong> <a href="tel:${c.phone}">${c.phone}</a></p>` : ""}
+        ${c.turnaround ? `<p><strong>Turnaround:</strong> ${c.turnaround}</p>` : ""}
+        ${c["follow-up"] ? `<p><strong>Follow-up:</strong> ${c["follow-up"]}</p>` : ""}
+      `;
+      otaContainer.appendChild(card);
+    });
+    delete grouped.OTA;
+  } else {
+    otaContainer.innerHTML = "<p>No OTA contacts found.</p>";
+  }
 
+  // Other Contacts Section
+  otherContainer.innerHTML = "";
   Object.entries(grouped).forEach(([category, contacts]) => {
-    const section = document.createElement("div");
-    section.innerHTML = `<h3 style="margin-top: 1rem; color: var(--accent);">${category}</h3>`;
-    
     contacts.forEach(c => {
       const card = document.createElement("div");
       card.className = "contact-card";
@@ -361,12 +384,9 @@ async function loadContacts() {
         ${c.phone ? `<p><strong>Phone:</strong> <a href="tel:${c.phone}">${c.phone}</a></p>` : ""}
         ${c.turnaround ? `<p><strong>Turnaround:</strong> ${c.turnaround}</p>` : ""}
         ${c["follow-up"] ? `<p><strong>Follow-up:</strong> ${c["follow-up"]}</p>` : ""}
-
       `;
-      section.appendChild(card);
+      otherContainer.appendChild(card);
     });
-
-    container.appendChild(section);
   });
 }
 
