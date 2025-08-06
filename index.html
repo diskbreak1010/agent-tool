@@ -72,14 +72,20 @@
       <section id="home" class="main-section visible">
         <form>
           <h1>Sutherland Resolution Tool</h1>
-          <label for="requestor">Requestor</label>
-          <select id="requestor">
-            <option value="">Select Requestor</option>
-            <option value="owner">Owner</option>
-            <option value="member">Member</option>
-            <option value="unregistered">Unregistered</option>
-          </select>
-          <div id="dynamicFields"></div>
+          <div class="form-row">
+  <label for="requestor">Requestor</label>
+  <select id="requestor">
+    <option value="">Select Requestor</option>
+    <option value="owner">Owner</option>
+    <option value="member">Member</option>
+    <option value="unregistered">Unregistered</option>
+  </select>
+</div>
+
+<div class="form-row" id="dynamicFields">
+  <!-- dynamic dropdowns will appear here -->
+</div>
+
 
           <div id="resolutionContainer" class="hidden">
             <h2>Resolution</h2>
