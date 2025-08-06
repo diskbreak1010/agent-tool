@@ -46,5 +46,11 @@
     "preview": "Your current ranking has changed...",
     "filename": "ranking-update.json",
     "category": "ranking"
+  },
+  {
+    "title": "TripAdvisor Listing Validation",
+    "preview": "Validation may take up to 6 days to be fully searchable...",
+    "filename": "listing-validation.json",
+    "category": "listing"
   }
 ]
