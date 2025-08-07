@@ -1,21 +1,35 @@
 {
-  "title": "BugMe Escalation",
-  "summary": "Steps to escalate BugMe-related cases properly.",
+  "title": "Escalation to BUGME",
+  "summary": "BugMe escalation guide and required case documentation fields.",
   "process": [
     "Put a Case Macro documenting the request",
     "Send the 'Case Escalation - Request Acknowledgement'",
-    "Ask approval from TL, SME, or HD",
-    "Apply the BugMe Macro",
-    "TL should test the issue on desktop and/or mobile (based on the case)",
-    "Do NOT include a Jira Ticket in this section",
-    "Fill in the following fields:",
-    "• Current Behavior: Clear description of the bug",
-    "• Expected Behavior: How the system should work",
-    "• Steps to Reproduce: Steps taken to replicate the bug",
-    "• Additional Info: Device, platform, app version",
-    "Change the 'Group' to 'BugMe'",
-    "Tick the Escalation box",
-    "Set Reason to 'Process sits with other department'",
+    "Ask approval to the following (TL, SME, HD)",
+    "Apply the BugMe Macro"
+  ],
+  "note": "Offshore ONLY - Escalation to BugMe approved by: Your TL should test the issue on desktop and/or mobile devices (according to issue) and confirm if it needs to be escalated. If they find a solution upon testing, they can provide proper steps to follow. Please do not include a Jira Ticket in this section.",
+  "fields": [
+    {
+      "label": "Current Behavior (Description)",
+      "description": "This field is to best describe the issue occurring with the bug. It’s important to provide as much detail as you can, especially if the previous interaction was a call, seeing as we can only rely on your notes. If this field is not clear - we will not be able to report the issue."
+    },
+    {
+      "label": "Expected Behavior",
+      "description": "To clarify how the app/site SHOULD work if the bug were not an issue."
+    },
+    {
+      "label": "Steps to Reproduce",
+      "description": "If TL was able to use mobile devices, please write steps they took to reproduce. OR outline (if possible) what steps the member/user took in order to get the bug."
+    },
+    {
+      "label": "Additional Information",
+      "description": "This field should provide Device, Platform (mobile app, mobile web, browser, etc.), app version."
+    }
+  ],
+  "finalSteps": [
+    "Change the 'Group' to BugMe",
+    "Tick the escalation box",
+    "Provide reason 'process sits with other department'",
     "Submit the case as OPEN"
   ]
 }
