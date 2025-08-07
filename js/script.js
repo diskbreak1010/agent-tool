@@ -209,12 +209,12 @@ document.getElementById("clearSidebarBtn").addEventListener("click", () => {
 // ------------------------
 // 🔹 Resolution Tool
 // ------------------------
-const GITHUB_RAW_URL = "https://raw.githubusercontent.com/diskbreak1010/agent-tool/main/";
+const GITHUB_RAW_URL = "/";
 
 async function fetchJSON(path) {
   if (cache[path]) return cache[path];
   try {
-    const response = await fetch(GITHUB_RAW_URL + encodeURI(path) + version); // 💡 add version here
+    const response = await fetch(GITHUB_RAW_URL + encodeURI(path) + version); // now from Netlify
     if (!response.ok) throw new Error("Failed to fetch");
     const data = await response.json();
     cache[path] = data;
