@@ -84,11 +84,15 @@ async function showEscalationModal(filename) {
   const summary = document.getElementById("escalationModalSummary");
   const stepsList = document.getElementById("escalationStepsList");
   const reStepsList = document.getElementById("reEscalationStepsList");
+  const fullText = document.getElementById("escalationFullText"); // ✅ Add this in modal
+  const processHeader = document.getElementById("processHeader");
+  const reEscalationHeader = document.getElementById("reEscalationHeader");
 
   title.textContent = "Loading...";
   summary.textContent = "";
   stepsList.innerHTML = "";
   reStepsList.innerHTML = "";
+  fullText.innerHTML = "";
   modal.classList.remove("hidden");
 
   const data = await fetchJSON(`escalations/${filename}`);
@@ -100,18 +104,57 @@ async function showEscalationModal(filename) {
   title.textContent = data.title || "Escalation Guide";
   summary.textContent = data.summary || "";
 
-  (data.process || []).forEach(step => {
-    const li = document.createElement("li");
-    li.textContent = step;
-    stepsList.appendChild(li);
-  });
+  const isExtended = data.fields || data.finalSteps || data.note;
 
-  (data.reEscalation || []).forEach(step => {
-    const li = document.createElement("li");
-    li.textContent = step;
-    reStepsList.appendChild(li);
-  });
+  if (isExtended) {
+    // Hide default lists if extended format is detected
+    stepsList.style.display = "none";
+    reStepsList.style.display = "none";
+
+    const parts = [];
+
+    if (data.process?.length) {
+      parts.push(`<h4>📌 Process Steps:</h4><ul>${data.process.map(s => `<li>${s}</li>`).join("")}</ul>`);
+    }
+
+    if (data.note) {
+      parts.push(`<p><strong>🔹 Note:</strong> ${data.note}</p>`);
+    }
+
+    if (data.fields?.length) {
+      parts.push(`<h4>📝 Required Fields:</h4>`);
+      parts.push(`<table class="escalation-table"><tbody>${data.fields.map(f => `
+        <tr>
+          <td><strong>${f.label}</strong></td>
+          <td>${f.description}</td>
+        </tr>`).join("")}</tbody></table>`);
+    }
+
+    if (data.finalSteps?.length) {
+      parts.push(`<h4>✅ Updating the Case Status:</h4><ul>${data.finalSteps.map(s => `<li>${s}</li>`).join("")}</ul>`);
+    }
+
+    fullText.innerHTML = parts.join("<br>");
+  } else {
+    // Show standard format
+    stepsList.style.display = "block";
+    reStepsList.style.display = "block";
+    fullText.innerHTML = "";
+
+    (data.process || []).forEach(step => {
+      const li = document.createElement("li");
+      li.textContent = step;
+      stepsList.appendChild(li);
+    });
+
+    (data.reEscalation || []).forEach(step => {
+      const li = document.createElement("li");
+      li.textContent = step;
+      reStepsList.appendChild(li);
+    });
+  }
 }
+
 
 // ========================
 // 🔹 Escalation Modal Close
