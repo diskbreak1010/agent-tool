@@ -9,6 +9,10 @@
   --button-text: #ffffff;
   --input-bg: #f9fafb;
   --shadow: 0 8px 24px rgba(0, 0, 0, 0.05);
+  --toolbar-bg: #f4f4f4;
+  --toolbar-button-bg: #fff;
+  --toolbar-button-text: #222;
+  --toolbar-button-border: #ccc;
 }
 
 .dark {
@@ -22,6 +26,10 @@
   --button-text: #000000;
   --input-bg: #2a2a2a;
   --shadow: 0 8px 24px rgba(255, 255, 255, 0.05);
+  --toolbar-bg: #2e2e2e;
+  --toolbar-button-bg: #3a3a3a;
+  --toolbar-button-text: #f4f4f4;
+  --toolbar-button-border: #555;
 }
 
 * {
@@ -1013,4 +1021,215 @@ select, input {
   background-color: #d1fae5; /* light green background */
   font-weight: bold;
   color: #065f46; /* darker green text */
+}
+
+
+/* ============================ */
+/* 📝 Modern Floating Notepad   */
+/* ============================ */
+
+#floatingNotepadWrapper {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 9999;
+  font-family: 'Times New Roman', sans-serif;
+}
+
+#notepadToggleBtn {
+  font-size: 20px;
+  padding: 10px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+#notepadPanel {
+  width: 320px;
+  background: #fff;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.notepad-header {
+  background: #04a96d;
+  color: white;
+  padding: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.notepad-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.notepad-toolbar {
+  background: var(--toolbar-bg);
+  padding: 6px;
+  display: flex;
+  justify-content: start;
+  gap: 6px;
+  border-bottom: 1px solid var(--toolbar-button-border);
+}
+
+.notepad-toolbar button {
+  background: var(--toolbar-button-bg);
+  border: 1px solid var(--toolbar-button-border);
+  color: var(--toolbar-button-text);
+  padding: 4px 8px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.notepad-toolbar button:hover {
+  background: rgba(0, 0, 0, 0.1);
+}
+
+.notepad-editable {
+  min-height: 120px;
+  padding: 16px 20px;
+  font-family: 'Times New Roman', sans-serif;
+  font-size: 14px;
+  border: none;
+  outline: none;
+  overflow-y: auto;
+  white-space: pre-wrap;
+}
+
+.notepad-editable ul,
+.notepad-editable ol {
+  padding-left: 30px;
+  margin: 8px 0;
+}
+
+.notepad-editable li {
+  margin-bottom: 4px;
+}
+
+/* Notepad Panel */
+#notepadPanel {
+  width: 300px;
+  height: 270px;
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(10px);
+  border-radius: 16px;
+  overflow: hidden;
+  margin-top: 12px;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  box-shadow: 0 12px 25px rgba(0, 0, 0, 0.2);
+}
+
+.hidden {
+  display: none !important;
+}
+
+
+/* Header bar */
+.notepad-header {
+  background: #f9fafb;
+  padding: 10px 16px;
+  border-bottom: 1px solid #e5e7eb;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-weight: 600;
+  font-size: 14px;
+  color: #111827;
+}
+
+/* Actions */
+.notepad-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+#clearNotepadBtn {
+  color: #e11d48;
+  cursor: pointer;
+  font-size: 13px;
+  padding: 2px 6px;
+  border-radius: 6px;
+  transition: background 0.2s;
+}
+
+#clearNotepadBtn:hover {
+  background-color: rgba(225, 29, 72, 0.1);
+}
+
+#collapseNotepadBtn {
+  background: none;
+  border: none;
+  font-size: 18px;
+  cursor: pointer;
+  color: #6b7280;
+  transition: color 0.2s;
+}
+
+#collapseNotepadBtn:hover {
+  color: #111827;
+}
+
+/* Textarea */
+#notepadArea {
+  flex: 1;
+  padding: 12px 16px;
+  font-family: sans-serif;
+  font-size: 13.5px;
+  border: none;
+  outline: none;
+  resize: none;
+  background: transparent;
+  color: #111827;
+  overflow-y: auto;
+}
+
+/* Scrollbar styling */
+#notepadArea::-webkit-scrollbar {
+  width: 8px;
+}
+
+#notepadArea::-webkit-scrollbar-thumb {
+  background-color: #ccc;
+  border-radius: 4px;
+}
+
+#notepadArea::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+/* Hide on small devices */
+@media (max-width: 768px) {
+  #floatingNotepadWrapper {
+    display: none;
+  }
+}
+
+.notepad-editable {
+  min-height: 120px;
+  padding: 16px 20px; /* Add more space inside */
+  font-family: 'Times New Roman', sans-serif;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  outline: none;
+  overflow-y: auto;
+  white-space: pre-wrap;
+}
+
+/* Add spacing for lists */
+.notepad-editable ul,
+.notepad-editable ol {
+  padding-left: 30px; /* space between bullet/number and border */
+  margin: 8px 0;
+}
+
+/* Optional: space between items */
+.notepad-editable li {
+  margin-bottom: 4px;
 }
