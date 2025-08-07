@@ -583,3 +583,43 @@ function createSidebarItem(key, value) {
 }
 
 // ✅ END: Dynamic Sidebar Renderer
+
+// ✅ Floating Notepad — stable version
+
+window.addEventListener("load", function () {
+  const toggleBtn = document.getElementById("notepadToggleBtn");
+  const panel = document.getElementById("notepadPanel");
+  const clearBtn = document.getElementById("clearNotepadBtn");
+  const collapseBtn = document.getElementById("collapseNotepadBtn");
+
+  toggleBtn?.addEventListener("click", () => {
+    panel.classList.remove("hidden");
+    toggleBtn.style.display = "none";
+  });
+
+  collapseBtn?.addEventListener("click", () => {
+    panel.classList.add("hidden");
+    toggleBtn.style.display = "inline-block";
+  });
+
+  clearBtn?.addEventListener("click", () => {
+    document.getElementById("notepadArea").value = "";
+  });
+});
+
+document.addEventListener("DOMContentLoaded", function () {
+  const notepad = document.getElementById("notepadArea");
+
+  notepad.addEventListener("keydown", function (e) {
+    if (e.key === "Tab") {
+      e.preventDefault();
+
+      // Insert 4 non-breaking spaces for tab simulation
+      document.execCommand('insertHTML', false, '&nbsp;&nbsp;&nbsp;&nbsp;');
+    }
+  });
+});
+
+function formatText(command) {
+  document.execCommand(command, false, null);
+}
