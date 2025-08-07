@@ -162,19 +162,24 @@
 <!-- 🔹 ESCALATION MODAL (POPUP) 🔹 -->
 <!-- ================================ -->
       
+<!-- 🔹 ESCALATION MODAL (POPUP) 🔹 -->
 <div id="escalationModal" class="modal hidden">
   <div class="modal-content">
     <span id="closeEscalationModal" class="close-modal">&times;</span>
     <h3 id="escalationModalTitle">Loading...</h3>
     <p id="escalationModalSummary"></p>
 
-    <h4>📌 Process Steps:</h4>
+    <h4 id="processHeader">📌 Process Steps:</h4>
     <ul id="escalationStepsList"></ul>
 
-    <h4>🔁 Re-Escalation Steps:</h4>
+    <h4 id="reEscalationHeader">🔁 Re-Escalation Steps:</h4>
     <ul id="reEscalationStepsList"></ul>
+
+    <!-- 🔸 Only shown for custom JSON -->
+    <div id="escalationFullText" class="formatted-text" style="white-space: pre-wrap; margin-top: 1rem;"></div>
   </div>
 </div>
+
 
       <!-- SCHEDULES -->
       <section id="schedules" class="main-section">
