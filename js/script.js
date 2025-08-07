@@ -584,8 +584,6 @@ function createSidebarItem(key, value) {
 
 // ✅ END: Dynamic Sidebar Renderer
 
-// ✅ Floating Notepad — stable version
-
 window.addEventListener("load", function () {
   const toggleBtn = document.getElementById("notepadToggleBtn");
   const panel = document.getElementById("notepadPanel");
@@ -603,9 +601,10 @@ window.addEventListener("load", function () {
   });
 
   clearBtn?.addEventListener("click", () => {
-    document.getElementById("notepadArea").value = "";
+    document.getElementById("notepadArea").innerHTML = ""; // ✅ FIXED HERE
   });
 });
+
 
 document.addEventListener("DOMContentLoaded", function () {
   const notepad = document.getElementById("notepadArea");
