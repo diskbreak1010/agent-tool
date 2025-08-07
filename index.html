@@ -13,6 +13,7 @@
       document.documentElement.classList.add("dark");
     }
   </script>
+  
 </head>
 <body class="" onload="initThemeToggle(); loadSidebar();">
   <!-- TOP BAR -->
@@ -72,7 +73,7 @@
       <section id="home" class="main-section visible">
         <form>
           <h1>Sutherland Resolution Tool</h1>
-          <div class="form-row">
+<div class="form-row">
   <label for="requestor">Requestor</label>
   <select id="requestor">
     <option value="">Select Requestor</option>
@@ -82,10 +83,9 @@
   </select>
 </div>
 
-<div class="form-row" id="dynamicFields">
+<div id="dynamicFields">
   <!-- dynamic dropdowns will appear here -->
 </div>
-
 
           <div id="resolutionContainer" class="hidden">
             <h2>Resolution</h2>
@@ -148,8 +148,6 @@
     <div class="contact-row" id="otherGroup"></div>
   </div>
 </section>
-
-
 
       <!-- ESCALATIONS -->
 <!-- ========================= -->
@@ -223,12 +221,37 @@
       </section>
     </main>
   </div>
+  
+<div id="floatingNotepadWrapper">
+  <button id="notepadToggleBtn" aria-label="Toggle Notepad">💬</button>
 
-  <!-- SCRIPT -->
+  <div id="notepadPanel" class="hidden">
+    <div class="notepad-header">
+      <span>📝 Notepad</span>
+      <div class="notepad-actions">
+        <span id="clearNotepadBtn" class="clear-link">Clear</span>
+        <button id="collapseNotepadBtn" aria-label="Collapse Notepad">×</button>
+      </div>
+    </div>
+
+    <!-- 🛠 Toolbar -->
+    <div class="notepad-toolbar">
+      <button onclick="formatText('bold')" title="Bold"><b>B</b></button>
+      <button onclick="formatText('italic')" title="Italic"><i>I</i></button>
+      <button onclick="formatText('underline')" title="Underline"><u>U</u></button>
+      <button onclick="formatText('insertUnorderedList')" title="Bullets">• List</button>
+      <button onclick="formatText('insertOrderedList')" title="Numbered">1. List</button>
+    </div>
+
+    <!-- 📝 Editable Area -->
+    <div id="notepadArea" class="notepad-editable" contenteditable="true" spellcheck="false"></div>
+  </div>
+</div>
+
 <script>
   // 🔹 Close when clicking the "×" close button
-  document.getElementById("closeEmailModal").addEventListener("click", () => {
-    document.getElementById("emailTemplateModal").classList.add("hidden");
+  document.getElementById("closeEmailModal")?.addEventListener("click", () => {
+    document.getElementById("emailTemplateModal")?.classList.add("hidden");
   });
 
   // 🔹 Close when clicking outside the modal content
@@ -236,11 +259,9 @@
     const modal = document.getElementById("emailTemplateModal");
     if (e.target === modal) {
       modal.classList.add("hidden");
+    }
   });
 </script>
-
-</body>
-
   <script src="js/script.js"></script>
-
+</body>
 </html>
