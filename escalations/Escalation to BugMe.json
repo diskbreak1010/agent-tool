@@ -6,8 +6,11 @@
     "Ask approval to the following (TL, SME, HD)",
     "Apply the BugMe Macro"
   ],
-  "note": "Offshore ONLY - Escalation to BugMe approved by: Your TL should test the issue on desktop and/or mobile devices (according to issue) and confirm if it needs to be escalated. If they find a solution upon testing, they can provide proper steps to follow. Please do not include a Jira Ticket in this section.",
   "fields": [
+    {
+      "label": "Offshore ONLY - Escalation to BugMe approved by",
+      "description": "Your TL should test the issue on desktop and/or mobile devices (according to issue) and confirm if it needs to be escalated. If they find a solution upon testing, they can provide proper steps to follow. Please do not include a Jira Ticket in this section."
+    },
     {
       "label": "Current Behavior (Description)",
       "description": "Describe the issue with as much detail as possible. Especially important if the previous interaction was a call. If unclear, the issue cannot be reported."
