@@ -8,5 +8,10 @@
     "filename": "Escalate to Moderation.json",
     "title": "Escalate to Moderation",
     "summary": "Steps to escalate moderation-related cases properly."
+  },
+  {
+    "filename": "Escalation to BugMe.json",
+    "title": "Escalate to BugMe",
+    "summary": "Steps to escalate bugme-related cases properly."
   }
 ]
