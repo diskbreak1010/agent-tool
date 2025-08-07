@@ -1,0 +1,24 @@
+{
+  "title": "BugMe Escalation",
+  "summary": "Procedure for escalating issues to BugMe, applicable to offshore agents with TL testing and confirmation.",
+  "process": [
+    "Put a Case Macro documenting the request.",
+    "Send the 'Case Escalation - Request Acknowledgement'.",
+    "Ask approval from TL, SME, or HD.",
+    "Apply the BugMe Macro.",
+    "Ensure TL tests the issue on desktop and/or mobile devices (based on issue type) before escalation.",
+    "Do NOT include a Jira Ticket in this section."
+  ],
+  "requiredFields": {
+    "Current Behavior": "Describe the issue clearly and in detail, especially if the previous interaction was a call. Vague descriptions may prevent escalation.",
+    "Expected Behavior": "Explain how the app/site should work if the bug were not present.",
+    "Steps to Reproduce": "List the steps TL or the member took to replicate the issue. Example: 'Went to listing > hit review button > filled out field > hit submit > error.'",
+    "Additional Information": "Include Device, Platform (e.g., mobile app, mobile web, browser), and App Version."
+  },
+  "statusUpdate": [
+    "Change the 'Group' to BugMe.",
+    "Tick the escalation box.",
+    "Provide reason: 'Process sits with other department'.",
+    "Submit the case as OPEN."
+  ]
+}
