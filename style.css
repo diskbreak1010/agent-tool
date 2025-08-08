@@ -1233,3 +1233,46 @@ select, input {
 .notepad-editable li {
   margin-bottom: 4px;
 }
+
+/* General card layout (shared with escalation) */
+.card-flex {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background-color: #fff;
+}
+
+/* Edge case specific tweaks */
+.edgecase-card {
+  border-left: 4px solid #ff9800; /* orange accent for edge cases */
+  background-color: #fff8e1;      /* light orange background */
+}
+
+.edgecase-card h4 {
+  margin: 0;
+  font-size: 1.1rem;
+  color: #e65100;
+}
+
+.edgecase-card p {
+  margin: 0.25rem 0;
+}
+
+/* Button styling (shared) */
+.card-button {
+  background-color: #ff9800;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.card-button:hover {
+  background-color: #e68900;
+}
+
