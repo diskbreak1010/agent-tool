@@ -28,6 +28,7 @@
       <button class="nav-link" data-section="templates">Templates</button>
       <button class="nav-link" data-section="contacts">Contacts</button>
       <button class="nav-link" data-section="escalations">Escalations</button>
+      <button class="nav-link" data-section="edgecases">Edge Cases</button>
       <button class="nav-link" data-section="schedules">Schedules</button>
       <button class="nav-link" data-section="devmode">DevMode</button>
     </div>
@@ -180,6 +181,25 @@
   </div>
 </div>
 
+<!-- EDGE CASES -->
+<section id="edgecases" class="main-section">
+  <input type="text" placeholder="Search Edge Cases..." class="search-bar" oninput="filterEdgeCases(this.value)" />
+  <div id="edgeCaseList" class="email-category"></div>
+</section>
+
+<!-- EDGE CASE MODAL -->
+<div id="edgeCaseModal" class="modal hidden">
+  <div class="modal-content">
+    <span id="closeEdgeCaseModal" class="close-modal">&times;</span>
+    <h3 id="edgeCaseModalTitle">Loading...</h3>
+    <p id="edgeCaseModalSummary"></p>
+
+    <h4 id="edgeCaseStepsHeader">📌 Steps:</h4>
+    <ul id="edgeCaseStepsList"></ul>
+
+    <div id="edgeCaseFullText" class="formatted-text" style="white-space: pre-wrap; margin-top: 1rem;"></div>
+  </div>
+</div>
 
       <!-- SCHEDULES -->
       <section id="schedules" class="main-section">
