@@ -188,6 +188,7 @@ async function loadEdgeCases() {
   container.innerHTML = "<p>Loading edge cases...</p>";
 
   const data = await fetchJSON("edgecases/templates.json"); // ✅ Now loads from templates.json
+  console.log("Fetched Edge Cases:", data);
   if (!data || !Array.isArray(data)) {
     container.innerHTML = "<p>❌ Failed to load edge case list.</p>";
     return;
