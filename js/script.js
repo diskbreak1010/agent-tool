@@ -654,6 +654,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const notepad = document.getElementById("notepadArea");
 
     let escalationsLoaded = false; // declare first
+    let edgeCasesLoaded = false; // new variable
 
     // Preload escalation data in the background
     loadEscalations();
@@ -665,7 +666,14 @@ document.addEventListener("DOMContentLoaded", function () {
             escalationsLoaded = true;
         }
     });
-});
+
+    // ✅ Edge Cases click handler — add it here
+    document.getElementById("edgecase-tab").addEventListener("click", function() {
+        if (!edgeCasesLoaded) {
+            loadEdgeCases();
+            edgeCasesLoaded = true;
+        }
+    });
 
 
   notepad.addEventListener("keydown", function (e) {
