@@ -58,5 +58,11 @@
     "preview": "Validation may take up to 6 days to be fully searchable...",
     "filename": "New listing Status - Explanation for Members.json",
     "category": "listing"
+  },
+  {
+    "title": "How to create a member account",
+    "preview": "Creating a member account...",
+    "filename": "create-member-account.json",
+    "category": "member account"
   }
 ]
