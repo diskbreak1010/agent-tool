@@ -181,13 +181,13 @@ function filterEscalations(searchTerm) {
 }
 
 // ====================================================
-// 🔹 EDGE CASES LOADER
+// 🔹 EDGE CASES LOADER (From templates.json)
 // ====================================================
 async function loadEdgeCases() {
   const container = document.getElementById("edgecaseList");
   container.innerHTML = "<p>Loading edge cases...</p>";
 
-  const data = await fetchJSON("edgecases/index.json");
+  const data = await fetchJSON("edgecases/templates.json"); // ✅ Now loads from templates.json
   if (!data || !Array.isArray(data)) {
     container.innerHTML = "<p>❌ Failed to load edge case list.</p>";
     return;
@@ -200,6 +200,7 @@ async function loadEdgeCases() {
     div.innerHTML = `
       <div class="card-text">
         <h4>${item.title}</h4>
+        <p><strong>Category:</strong> ${item.category}</p>
         <p>${item.summary}</p>
       </div>
       <div class="card-actions">
