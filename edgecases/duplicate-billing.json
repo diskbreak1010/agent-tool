@@ -1,0 +1,5 @@
+{
+  "title": "Customer Reports Duplicate Billing",
+  "category": "Billing",
+  "body": "<p>If a customer reports being billed twice for the same service, follow these steps:</p><ol><li>Verify the payment records in the billing system.</li><li>Check for duplicate transaction IDs.</li><li>If confirmed, initiate a refund request.</li><li>Notify the customer about the resolution timeline.</li></ol>"
+}
