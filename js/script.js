@@ -651,7 +651,22 @@ window.addEventListener("load", function () {
 
 
 document.addEventListener("DOMContentLoaded", function () {
-  const notepad = document.getElementById("notepadArea");
+    const notepad = document.getElementById("notepadArea");
+
+    let escalationsLoaded = false; // declare first
+
+    // Preload escalation data in the background
+    loadEscalations();
+    escalationsLoaded = true;
+
+    document.getElementById("escalation-tab").addEventListener("click", function() {
+        if (!escalationsLoaded) {
+            loadEscalations();
+            escalationsLoaded = true;
+        }
+    });
+});
+
 
   notepad.addEventListener("keydown", function (e) {
     if (e.key === "Tab") {
