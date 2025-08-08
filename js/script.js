@@ -180,6 +180,62 @@ function filterEscalations(searchTerm) {
   });
 }
 
+// ====================================================
+// 🔹 EDGE CASES LOADER
+// ====================================================
+async function loadEdgeCases() {
+  const container = document.getElementById("edgecaseList");
+  container.innerHTML = "<p>Loading edge cases...</p>";
+
+  const data = await fetchJSON("edgecases/index.json");
+  if (!data || !Array.isArray(data)) {
+    container.innerHTML = "<p>❌ Failed to load edge case list.</p>";
+    return;
+  }
+
+  container.innerHTML = "";
+  data.forEach(item => {
+    const div = document.createElement("div");
+    div.className = "edgecase-card card-flex";
+    div.innerHTML = `
+      <div class="card-text">
+        <h4>${item.title}</h4>
+        <p>${item.summary}</p>
+      </div>
+      <div class="card-actions">
+        <button onclick="showEdgeCaseModal('${item.filename}')" class="card-button">View</button>
+      </div>
+    `;
+    container.appendChild(div);
+  });
+}
+
+// ====================================================
+// 🔹 EDGE CASE MODAL HANDLER
+// ====================================================
+async function showEdgeCaseModal(filename) {
+  const modal = document.getElementById("edgecaseModal");
+  const title = document.getElementById("edgecaseModalTitle");
+  const summary = document.getElementById("edgecaseModalSummary");
+  const details = document.getElementById("edgecaseDetails");
+
+  title.textContent = "Loading...";
+  summary.textContent = "";
+  details.innerHTML = "";
+  modal.classList.remove("hidden");
+
+  const data = await fetchJSON(`edgecases/${filename}`);
+  if (!data) {
+    title.textContent = "❌ Failed to load edge case data";
+    return;
+  }
+
+  title.textContent = data.title || "Edge Case";
+  summary.textContent = data.summary || "";
+  details.innerHTML = data.body || "";
+}
+
+
 // ------------------------
 // 🔹 Sidebar Dropdowns
 // ------------------------
@@ -649,41 +705,36 @@ window.addEventListener("load", function () {
   });
 });
 
-
 document.addEventListener("DOMContentLoaded", function () {
     const notepad = document.getElementById("notepadArea");
 
-    let escalationsLoaded = false; // declare first
-    let edgeCasesLoaded = false; // new variable
+    let escalationsLoaded = false;
+    let edgeCasesLoaded = false;
 
-    // Preload escalation data in the background
+    // Preload escalation data
     loadEscalations();
     escalationsLoaded = true;
 
-    document.getElementById("escalation-tab").addEventListener("click", function() {
+    document.getElementById("escalation-tab").addEventListener("click", function () {
         if (!escalationsLoaded) {
             loadEscalations();
             escalationsLoaded = true;
         }
     });
 
-    // ✅ Edge Cases click handler — add it here
-    document.getElementById("edgecase-tab").addEventListener("click", function() {
+    document.getElementById("edgecase-tab").addEventListener("click", function () {
         if (!edgeCasesLoaded) {
             loadEdgeCases();
             edgeCasesLoaded = true;
         }
     });
 
-
-  notepad.addEventListener("keydown", function (e) {
-    if (e.key === "Tab") {
-      e.preventDefault();
-
-      // Insert 4 non-breaking spaces for tab simulation
-      document.execCommand('insertHTML', false, '&nbsp;&nbsp;&nbsp;&nbsp;');
-    }
-  });
+    notepad.addEventListener("keydown", function (e) {
+        if (e.key === "Tab") {
+            e.preventDefault();
+            document.execCommand('insertHTML', false, '&nbsp;&nbsp;&nbsp;&nbsp;');
+        }
+    });
 });
 
 function formatText(command) {
