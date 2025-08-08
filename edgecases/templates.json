@@ -1,0 +1,20 @@
+[
+  {
+    "title": "Customer Reports Duplicate Billing",
+    "category": "Billing",
+    "summary": "Steps to handle a duplicate billing complaint.",
+    "filename": "duplicate-billing.json"
+  },
+  {
+    "title": "App Freezes on Startup",
+    "category": "Technical Issue",
+    "summary": "Troubleshooting steps for app freezing immediately on startup.",
+    "filename": "app-freeze.json"
+  },
+  {
+    "title": "Request for Data Export",
+    "category": "Data Requests",
+    "summary": "Procedure for fulfilling customer data export requests.",
+    "filename": "data-export.json"
+  }
+]
