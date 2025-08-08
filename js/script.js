@@ -458,6 +458,7 @@ async function loadContacts() {
         ${c.phone ? `<p><strong>Phone:</strong> <a href="tel:${c.phone}">${c.phone}</a></p>` : ""}
         ${c.turnaround ? `<p><strong>Turnaround:</strong> ${c.turnaround}</p>` : ""}
         ${c["follow-up"] ? `<p><strong>Follow-up:</strong> ${c["follow-up"]}</p>` : ""}
+        ${c["description"] ? `<p><strong>Description:</strong> ${c["description"]}</p>` : ""}
       `;
       otherContainer.appendChild(card);
     });
