@@ -789,9 +789,3 @@ function formatText(command) {
   document.execCommand(command, false, null);
 }
 
-
-const themeToggle = document.querySelector('.theme-toggle');
-
-themeToggle.addEventListener('click', () => {
-  document.body.classList.toggle('dark');
-});
