@@ -74,7 +74,7 @@ div.innerHTML = `
     <p>${item.summary}</p>
   </div>
   <div class="card-actions">
-    <button onclick="showEscalationModal('${item.filename}')" class="card-button">View</button>
+    <button onclick="showEscalationModal('${item.filename}', '${item.category || 'escalation'}')" class="card-button">View</button>
   </div>
 `;
 
