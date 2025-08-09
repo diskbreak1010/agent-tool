@@ -272,8 +272,9 @@ const GITHUB_RAW_URL = "/";
 async function fetchJSON(path) {
   if (cache[path]) return cache[path];
   try {
-    const response = await fetch(GITHUB_RAW_URL + encodeURI(path) + version); // now from Netlify
-    if (!response.ok) throw new Error("Failed to fetch");
+    // ✅ Force relative path so it works on Netlify
+    const response = await fetch(`./${path}?v=${Date.now()}`);
+    if (!response.ok) throw new Error(`Failed to fetch: ${response.status} ${response.statusText}`);
     const data = await response.json();
     cache[path] = data;
     return data;
@@ -282,6 +283,7 @@ async function fetchJSON(path) {
     return null;
   }
 }
+
 
 async function loadCategories(requestor) {
   return await fetchJSON(`categories/${requestor}.json`);
