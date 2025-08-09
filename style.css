@@ -1276,3 +1276,21 @@ select, input {
   background-color: #e68900;
 }
 
+/* Edge Cases page styling - same as Templates and Escalations */
+.templates-container,
+.escalations-container,
+.edgecases-container {
+  max-width: 900px;
+  margin: auto;
+  padding: 20px;
+}
+
+.template-item,
+.escalation-item,
+.edgecase-item {
+  background: var(--card-bg);
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: var(--shadow);
+  margin-bottom: 10px;
+}
