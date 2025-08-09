@@ -143,7 +143,7 @@ async function showEscalationModal(filename, category = "escalation") {
       stepsList.style.display = "block";
       data.process.forEach(step => {
         const li = document.createElement("li");
-        li.textContent = step;
+        li.innerHTML = step.replace(/\n/g, "<br>");
         stepsList.appendChild(li);
       });
     }
@@ -155,7 +155,7 @@ async function showEscalationModal(filename, category = "escalation") {
       stepsList.style.display = "block";
       data.process.forEach(step => {
         const li = document.createElement("li");
-        li.textContent = step;
+        li.innerHTML = step.replace(/\n/g, "<br>");
         stepsList.appendChild(li);
       });
     }
@@ -167,7 +167,7 @@ async function showEscalationModal(filename, category = "escalation") {
       reStepsList.style.display = "block";
       data.reEscalation.forEach(step => {
         const li = document.createElement("li");
-        li.textContent = step;
+        li.innerHTML = step.replace(/\n/g, "<br>");
         reStepsList.appendChild(li);
       });
     }
