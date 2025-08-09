@@ -87,10 +87,11 @@ async function showEscalationModal(filename) {
   const summary = document.getElementById("escalationModalSummary");
   const stepsList = document.getElementById("escalationStepsList");
   const reStepsList = document.getElementById("reEscalationStepsList");
-  const fullText = document.getElementById("escalationFullText"); // ✅ Add this in modal
+  const fullText = document.getElementById("escalationFullText"); // container for extended content
   const processHeader = document.getElementById("processHeader");
   const reEscalationHeader = document.getElementById("reEscalationHeader");
 
+  // Reset modal content and show modal
   title.textContent = "Loading...";
   summary.textContent = "";
   stepsList.innerHTML = "";
@@ -107,17 +108,20 @@ async function showEscalationModal(filename) {
   title.textContent = data.title || "Escalation Guide";
   summary.textContent = data.summary || "";
 
+  // Detect extended format with fields, finalSteps or note
   const isExtended = data.fields || data.finalSteps || data.note;
 
   if (isExtended) {
-    // Hide default lists if extended format is detected
+    // Hide default lists since we’ll render extended format below
     stepsList.style.display = "none";
     reStepsList.style.display = "none";
+    processHeader.style.display = "none";
+    reEscalationHeader.style.display = "none";
 
     const parts = [];
 
     if (data.process?.length) {
-      parts.push(`<h4>📌 Process Steps:</h4><ul>${data.process.map(s => `<li>${s}</li>`).join("")}</ul>`);
+      parts.push(`<h4>📌 Process Steps:</h4><ul>${data.process.map(step => `<li>${step}</li>`).join("")}</ul>`);
     }
 
     if (data.note) {
@@ -134,14 +138,16 @@ async function showEscalationModal(filename) {
     }
 
     if (data.finalSteps?.length) {
-      parts.push(`<h4>✅ Updating the Case Status:</h4><ul>${data.finalSteps.map(s => `<li>${s}</li>`).join("")}</ul>`);
+      parts.push(`<h4>✅ Updating the Case Status:</h4><ul>${data.finalSteps.map(step => `<li>${step}</li>`).join("")}</ul>`);
     }
 
     fullText.innerHTML = parts.join("<br>");
   } else {
-    // Show standard format
+    // Show standard escalation format with process and re-escalation steps
     stepsList.style.display = "block";
     reStepsList.style.display = "block";
+    processHeader.style.display = "block";
+    reEscalationHeader.style.display = "block";
     fullText.innerHTML = "";
 
     (data.process || []).forEach(step => {
@@ -157,7 +163,6 @@ async function showEscalationModal(filename) {
     });
   }
 }
-
 
 // ========================
 // 🔹 Escalation Modal Close
