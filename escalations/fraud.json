@@ -1,6 +1,7 @@
 {
   "title": "Fraud Escalation",
   "summary": "Steps to escalate fraud-related cases properly.",
+  "category": "escalation",
   "process": [
     "Put Case Macro and Fraud Escalation Macro",
     "Tick the 'Escalated' box",
