@@ -187,7 +187,7 @@ function filterEscalations(searchTerm) {
 // 🔹 EDGE CASES LOADER (From templates.json)
 // ====================================================
 async function loadEdgeCases() {
-  const container = document.getElementById("edgecaseList");
+  const container = document.getElementById("edgeCaseList");
   container.innerHTML = "<p>Loading edge cases...</p>";
 
   const data = await fetchJSON("edgecases/templates.json"); // ✅ Now loads from templates.json
