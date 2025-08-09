@@ -50,6 +50,11 @@ navLinks.forEach(link => {
   });
 });
 
+document.getElementById('toggleThemeBtn').addEventListener('click', () => {
+  document.body.classList.toggle('dark');
+});
+
+
 // ====================================================
 // 🔹 ESCALATIONS LOADER + MODAL HANDLER
 // ====================================================
