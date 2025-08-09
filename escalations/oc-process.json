@@ -1,6 +1,7 @@
 {
   "title": "Ownership Change Process",
   "summary": "Ownership Change Process - Step-by-step guide to handle ownership change and remove related reviews.",
+  "category": "process",
   "process": [
     "1. Select \"see all\" to see all the reviews.",
     "2. Select \"Advance Search\" and tick \"Hide removed\".",
