@@ -108,24 +108,42 @@ async function showEscalationModal(filename, category = "escalation") {
   title.textContent = data.title || "Escalation Guide";
   summary.textContent = data.summary || "";
 
+  // Hide all headers by default
+  processHeader.style.display = "none";
+  stepsList.style.display = "none";
+  reEscalationHeader.style.display = "none";
+  reStepsList.style.display = "none";
+
   if (category === "process") {
-    processHeader.style.display = "block";
-    stepsList.style.display = "block";
-    reEscalationHeader.style.display = "none";
-    reStepsList.style.display = "none";
-    if (data.process?.length) {
+    // Show process steps if present
+    if (data.process && data.process.length > 0) {
+      processHeader.style.display = "block";
+      processHeader.textContent = "📌 Process Steps:";
+      stepsList.style.display = "block";
       data.process.forEach(step => {
         const li = document.createElement("li");
         li.textContent = step;
         stepsList.appendChild(li);
       });
     }
-  } else {
-    processHeader.style.display = "none";
-    stepsList.style.display = "none";
-    reEscalationHeader.style.display = "block";
-    reStepsList.style.display = "block";
-    if (data.reEscalation?.length) {
+  } else if (category === "escalation") {
+    // Show escalation steps if present
+    if (data.process && data.process.length > 0) {
+      processHeader.style.display = "block";
+      processHeader.textContent = "📌 Process Steps:";
+      stepsList.style.display = "block";
+      data.process.forEach(step => {
+        const li = document.createElement("li");
+        li.textContent = step;
+        stepsList.appendChild(li);
+      });
+    }
+
+    // Show re-escalation steps if present
+    if (data.reEscalation && data.reEscalation.length > 0) {
+      reEscalationHeader.style.display = "block";
+      reEscalationHeader.textContent = "🔁 Re-Escalation Steps:";
+      reStepsList.style.display = "block";
       data.reEscalation.forEach(step => {
         const li = document.createElement("li");
         li.textContent = step;
@@ -134,8 +152,14 @@ async function showEscalationModal(filename, category = "escalation") {
     }
   }
 
-  fullText.textContent = data.note || "";
+  // Show note only if present
+  if (data.note && data.note.trim() !== "") {
+    fullText.textContent = data.note;
+  } else {
+    fullText.textContent = "";
+  }
 }
+
 
 // ========================
 // 🔹 Escalation Modal Close
