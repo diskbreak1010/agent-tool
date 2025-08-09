@@ -272,9 +272,9 @@ const GITHUB_RAW_URL = "/";
 async function fetchJSON(path) {
   if (cache[path]) return cache[path];
   try {
-    // ✅ Force relative path so it works on Netlify
-    const response = await fetch(`./${path}?v=${Date.now()}`);
-    if (!response.ok) throw new Error(`Failed to fetch: ${response.status} ${response.statusText}`);
+    const GITHUB_RAW_URL = "https://raw.githubusercontent.com/diskbreak1010/agent-tool/main/";
+    const response = await fetch(GITHUB_RAW_URL + path + `?v=${Date.now()}`);
+    if (!response.ok) throw new Error(`HTTP ${response.status} – ${response.statusText}`);
     const data = await response.json();
     cache[path] = data;
     return data;
@@ -283,7 +283,6 @@ async function fetchJSON(path) {
     return null;
   }
 }
-
 
 async function loadCategories(requestor) {
   return await fetchJSON(`categories/${requestor}.json`);
