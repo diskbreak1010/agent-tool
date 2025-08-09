@@ -789,3 +789,10 @@ function formatText(command) {
   document.execCommand(command, false, null);
 }
 
+document.addEventListener("DOMContentLoaded", () => {
+  initThemeToggle();
+  const btn = document.getElementById("theme-toggle-btn");
+  if (btn) btn.addEventListener("click", toggleTheme);
+});
+
+
