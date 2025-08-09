@@ -17,7 +17,7 @@
   --badge-text: #444;    /* Dark text */
 }
 
-.dark {
+html.dark {
   --bg-color: #121212;
   --card-bg: #1e1e1e;
   --card-text: #e0e0e0;
@@ -32,8 +32,8 @@
   --toolbar-button-bg: #3a3a3a;
   --toolbar-button-text: #f4f4f4;
   --toolbar-button-border: #555;
-  --badge-bg: #555555;   /* Dark background */
-  --badge-text: #eee;    /* Light text */
+  --badge-bg: #555555;
+  --badge-text: #eee;
 }
 
 * {
