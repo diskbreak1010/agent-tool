@@ -1022,6 +1022,17 @@ select, input {
   font-weight: bold;
   color: #065f46; /* darker green text */
 }
+.category-badge {
+  display: inline-block;
+  background-color: #007bff; /* or any color */
+  color: white;
+  font-size: 0.75rem;
+  padding: 2px 8px;
+  border-radius: 12px;
+  margin-bottom: 6px;
+  font-weight: 600;
+  text-transform: capitalize;
+}
 
 
 /* ============================ */
