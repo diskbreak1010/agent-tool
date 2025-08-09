@@ -1,5 +1,6 @@
 {
   "title": "Escalation to BUGME",
+  "category": "escalation",
   "process": [
     "Put a Case Macro documenting the request",
     "Send the \"Case Escalation - Request Acknowledgement\"",
