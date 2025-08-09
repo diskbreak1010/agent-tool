@@ -67,6 +67,7 @@ async function loadEscalations() {
   data.forEach(item => {
     const div = document.createElement("div");
 div.className = "escalation-card card-flex";
+div.dataset.category = item.category || "escalation"; // Add category data attribute
 div.innerHTML = `
   <div class="card-text">
     <h4>${item.title}</h4>
@@ -81,30 +82,22 @@ div.innerHTML = `
   });
 }
 
-async function showEscalationModal(filename) {
+async function showEscalationModal(filename, category = "escalation") {
   const modal = document.getElementById("escalationModal");
   const title = document.getElementById("escalationModalTitle");
   const summary = document.getElementById("escalationModalSummary");
-  const processHeader = document.getElementById("processHeader");
-  const reEscalationHeader = document.getElementById("reEscalationHeader");
   const stepsList = document.getElementById("escalationStepsList");
   const reStepsList = document.getElementById("reEscalationStepsList");
   const fullText = document.getElementById("escalationFullText");
+  const processHeader = document.getElementById("processHeader");
+  const reEscalationHeader = document.getElementById("reEscalationHeader");
 
-  // Reset modal content and visibility
   title.textContent = "Loading...";
   summary.textContent = "";
   stepsList.innerHTML = "";
   reStepsList.innerHTML = "";
   fullText.innerHTML = "";
   modal.classList.remove("hidden");
-
-  // Hide all headers by default
-  processHeader.style.display = "none";
-  reEscalationHeader.style.display = "none";
-  stepsList.style.display = "none";
-  reStepsList.style.display = "none";
-  fullText.style.display = "none";
 
   const data = await fetchJSON(`escalations/${filename}`);
   if (!data) {
@@ -115,56 +108,24 @@ async function showEscalationModal(filename) {
   title.textContent = data.title || "Escalation Guide";
   summary.textContent = data.summary || "";
 
-  // Check if extended format (complex JSON) is used
-  const isExtended = data.fields || data.finalSteps || data.note;
-
-  if (isExtended) {
-    // Hide default lists since we use fullText container instead
-    stepsList.style.display = "none";
+  if (category === "process") {
+    processHeader.style.display = "block";
+    stepsList.style.display = "block";
+    reEscalationHeader.style.display = "none";
     reStepsList.style.display = "none";
-
-    const parts = [];
-
-    if (data.process && data.process.length > 0) {
-      parts.push(`<h4>📌 Process Steps:</h4><ul>${data.process.map(s => `<li>${s}</li>`).join("")}</ul>`);
-    }
-
-    if (data.note && data.note.trim() !== "") {
-      parts.push(`<p><strong>🔹 Note:</strong> ${data.note}</p>`);
-    }
-
-    if (data.fields && data.fields.length > 0) {
-      parts.push(`<h4>📝 Required Fields:</h4>`);
-      parts.push(`<table class="escalation-table"><tbody>${data.fields.map(f => `
-        <tr>
-          <td><strong>${f.label}</strong></td>
-          <td>${f.description}</td>
-        </tr>`).join("")}</tbody></table>`);
-    }
-
-    if (data.finalSteps && data.finalSteps.length > 0) {
-      parts.push(`<h4>✅ Updating the Case Status:</h4><ul>${data.finalSteps.map(s => `<li>${s}</li>`).join("")}</ul>`);
-    }
-
-    fullText.innerHTML = parts.join("<br>");
-    fullText.style.display = "block";
-
-  } else {
-    // Show simple standard lists if extended format not used
-
-    if (data.process && data.process.length > 0) {
-      processHeader.style.display = "block";
-      stepsList.style.display = "block";
+    if (data.process?.length) {
       data.process.forEach(step => {
         const li = document.createElement("li");
         li.textContent = step;
         stepsList.appendChild(li);
       });
     }
-
-    if (data.reEscalation && data.reEscalation.length > 0) {
-      reEscalationHeader.style.display = "block";
-      reStepsList.style.display = "block";
+  } else {
+    processHeader.style.display = "none";
+    stepsList.style.display = "none";
+    reEscalationHeader.style.display = "block";
+    reStepsList.style.display = "block";
+    if (data.reEscalation?.length) {
       data.reEscalation.forEach(step => {
         const li = document.createElement("li");
         li.textContent = step;
@@ -172,6 +133,8 @@ async function showEscalationModal(filename) {
       });
     }
   }
+
+  fullText.textContent = data.note || "";
 }
 
 // ========================
