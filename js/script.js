@@ -64,24 +64,43 @@ async function loadEscalations() {
   }
 
   container.innerHTML = "";
-  data.forEach(item => {
-    const div = document.createElement("div");
-div.className = "escalation-card card-flex";
-div.dataset.category = item.category || "escalation"; // Add category data attribute
-div.innerHTML = `
-  <div class="card-text">
-    <h4>${item.title}</h4>
-    <span class="category-badge">${item.category || 'escalation'}</span>
-    <p>${item.summary}</p>
-  </div>
-  <div class="card-actions">
-    <button onclick="showEscalationModal('${item.filename}', '${item.category || 'escalation'}')" class="card-button">View</button>
-  </div>
-`;
 
+  // Group by category
+  const grouped = data.reduce((acc, item) => {
+    const cat = item.category || "escalation";
+    if (!acc[cat]) acc[cat] = [];
+    acc[cat].push(item);
+    return acc;
+  }, {});
 
-    container.appendChild(div);
-  });
+  // Render categories and their cards
+  for (const [category, items] of Object.entries(grouped)) {
+    const heading = document.createElement("h3");
+    heading.className = "category-header";
+    heading.textContent = `📁 ${capitalizeFirstLetter(category)}`;
+    container.appendChild(heading);
+
+    items.forEach(item => {
+      const div = document.createElement("div");
+      div.className = "escalation-card card-flex";
+      div.dataset.category = category;
+      div.innerHTML = `
+        <div class="card-text">
+          <h4>${item.title}</h4>
+          <p>${item.summary}</p>
+        </div>
+        <div class="card-actions">
+          <button onclick="showEscalationModal('${item.filename}', '${category}')" class="card-button">View</button>
+        </div>
+      `;
+      container.appendChild(div);
+    });
+  }
+}
+
+// Helper function to capitalize category names
+function capitalizeFirstLetter(string) {
+  return string.charAt(0).toUpperCase() + string.slice(1);
 }
 
 async function showEscalationModal(filename, category = "escalation") {
