@@ -1294,8 +1294,13 @@ select, input {
   background-color: #1976d2; /* Darker blue on hover */
 }
 
-/* Space below Edge Cases search bar (matches Escalations) */
+/* 🛠 Edge Cases search bar spacing (match Escalations/Templates) */
 #edgecases .search-bar {
   display: block;
-  margin-bottom: 1.5rem;
+  margin-bottom: 1.5rem; /* same as other sections */
+}
+
+/* 🛠 Ensure first card in Edge Cases has space from search bar */
+#edgecases .edgecase-item:first-child {
+  margin-top: 0; /* remove any accidental negative margins */
 }
