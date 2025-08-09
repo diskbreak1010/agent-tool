@@ -15,7 +15,7 @@
   --toolbar-button-border: #ccc;
 }
 
-.dark {
+body.dark-mode {
   --bg-color: #121212;
   --card-bg: #1e1e1e;
   --card-text: #e0e0e0;
@@ -1042,6 +1042,31 @@ select, input {
   border-bottom: 2px solid #ccc;
   padding-bottom: 0.3rem;
 }
+
+body {
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  transition: all 0.3s ease;
+  line-height: 1.7;
+  letter-spacing: 0.25px;
+}
+
+.escalation-card {
+  background-color: var(--card-bg);
+  color: var(--card-text);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.edgecase-modal {
+  background-color: var(--card-bg);
+  color: var(--card-text);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
 
 /* ============================ */
 /* 📝 Modern Floating Notepad   */
