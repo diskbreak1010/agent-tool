@@ -1246,37 +1246,21 @@ select, input {
   background-color: #fff;
 }
 
-/* Edge case specific tweaks */
-.edgecase-card {
-  border-left: 4px solid #ff9800; /* orange accent for edge cases */
-  background-color: #fff8e1;      /* light orange background */
+/* Edge case specific tweaks - same base style as templates/escalations */
+.edgecase-item {
+  border-left: 4px solid #2196f3; /* Blue */
+  background-color: #e3f2fd;
 }
 
-.edgecase-card h4 {
-  margin: 0;
-  font-size: 1.1rem;
-  color: #e65100;
+.edgecase-item h4 {
+  color: #0d47a1;
 }
 
-.edgecase-card p {
+.edgecase-item p {
   margin: 0.25rem 0;
 }
 
-/* Button styling (shared) */
-.card-button {
-  background-color: #ff9800;
-  color: white;
-  border: none;
-  padding: 0.5rem 1rem;
-  border-radius: 4px;
-  cursor: pointer;
-}
-
-.card-button:hover {
-  background-color: #e68900;
-}
-
-/* Edge Cases page styling - same as Templates and Escalations */
+/* Shared container styling */
 .templates-container,
 .escalations-container,
 .edgecases-container {
@@ -1285,6 +1269,7 @@ select, input {
   padding: 20px;
 }
 
+/* Shared card styling */
 .template-item,
 .escalation-item,
 .edgecase-item {
@@ -1294,3 +1279,18 @@ select, input {
   box-shadow: var(--shadow);
   margin-bottom: 10px;
 }
+
+/* Shared button styling */
+.card-button {
+  background-color: #2196f3; /* Blue to match cards */
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.card-button:hover {
+  background-color: #1976d2; /* Darker blue on hover */
+}
+
