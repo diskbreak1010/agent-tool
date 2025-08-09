@@ -1304,3 +1304,19 @@ select, input {
 #edgecases .edgecase-item:first-child {
   margin-top: 0; /* remove any accidental negative margins */
 }
+
+
+/* Edge Case Modal List Spacing Fix */
+#edgecaseDetails ol,
+#edgecaseDetails ul,
+.formatted-text ol,
+.formatted-text ul {
+  padding-left: 1.25rem;
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+#edgecaseDetails ol li,
+.formatted-text ol li {
+  margin-bottom: 0.25rem;
+}
