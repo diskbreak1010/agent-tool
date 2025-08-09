@@ -1320,3 +1320,19 @@ select, input {
 .formatted-text ol li {
   margin-bottom: 0.25rem;
 }
+
+/* Modal content scroll & padding for Edge Case modal */
+#edgecaseModal .modal-content {
+  max-height: 80vh;        /* Limit modal height to 80% of viewport height */
+  overflow-y: auto;        /* Enable vertical scrolling inside modal */
+  padding: 1.5rem;         /* Add some padding inside so text doesn't touch edges */
+  box-sizing: border-box;  /* Include padding in width/height calculations */
+  word-wrap: break-word;   /* Prevent long words or URLs from overflowing */
+}
+
+/* Also ensure the inner details have proper spacing */
+#edgecaseDetails {
+  white-space: pre-wrap;   /* Keep your existing white-space style */
+  margin-top: 1rem;        /* Some spacing above the content */
+  word-wrap: break-word;   /* Same here to prevent overflow */
+}
