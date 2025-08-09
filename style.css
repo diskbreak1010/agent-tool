@@ -13,6 +13,8 @@
   --toolbar-button-bg: #fff;
   --toolbar-button-text: #222;
   --toolbar-button-border: #ccc;
+  --badge-bg: #e0e0e0;   /* Light background */
+  --badge-text: #444;    /* Dark text */
 }
 
 body.dark-mode {
@@ -30,6 +32,8 @@ body.dark-mode {
   --toolbar-button-bg: #3a3a3a;
   --toolbar-button-text: #f4f4f4;
   --toolbar-button-border: #555;
+  --badge-bg: #555555;   /* Dark background */
+  --badge-text: #eee;    /* Light text */
 }
 
 * {
@@ -1023,15 +1027,14 @@ select, input {
   color: #065f46; /* darker green text */
 }
 .category-badge {
-  display: inline-block;
-  background-color: #007bff; /* or any color */
-  color: white;
-  font-size: 0.75rem;
+  background-color: var(--badge-bg, #ddd);
+  color: var(--badge-text, #333);
   padding: 2px 8px;
   border-radius: 12px;
-  margin-bottom: 6px;
+  font-size: 0.8rem;
   font-weight: 600;
-  text-transform: capitalize;
+  user-select: none;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .category-header {
