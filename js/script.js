@@ -240,6 +240,20 @@ async function showEdgeCaseModal(filename) {
   details.innerHTML = data.body || "";
 }
 
+// ========================
+// 🔹 Edge Case Modal Close
+// ========================
+document.getElementById("closeEdgeCaseModal").addEventListener("click", () => {
+  document.getElementById("edgecaseModal").classList.add("hidden");
+});
+
+document.addEventListener("click", function (e) {
+  const modal = document.getElementById("edgecaseModal");
+  if (e.target === modal) {
+    modal.classList.add("hidden");
+  }
+});
+
 
 // ------------------------
 // 🔹 Sidebar Dropdowns
