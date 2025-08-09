@@ -13,5 +13,10 @@
     "filename": "Escalation to BugMe.json",
     "title": "Escalate to BugMe",
     "summary": "Steps to escalate bugme-related cases properly."
+  },
+  {
+    "filename": "oc-process.json",
+    "title": "Ownership Change",
+    "summary": "Steps how to process ownership change."
   }
 ]
