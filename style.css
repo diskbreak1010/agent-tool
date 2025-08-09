@@ -1034,6 +1034,14 @@ select, input {
   text-transform: capitalize;
 }
 
+.category-header {
+  font-size: 1.25rem;
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+  font-weight: 700;
+  border-bottom: 2px solid #ccc;
+  padding-bottom: 0.3rem;
+}
 
 /* ============================ */
 /* 📝 Modern Floating Notepad   */
