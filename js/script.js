@@ -272,8 +272,8 @@ const GITHUB_RAW_URL = "/";
 async function fetchJSON(path) {
   if (cache[path]) return cache[path];
   try {
-    const GITHUB_RAW_URL = "https://raw.githubusercontent.com/diskbreak1010/agent-tool/main/";
-    const response = await fetch(GITHUB_RAW_URL + path + `?v=${Date.now()}`);
+    // Fetch from your own site (works on Netlify and locally)
+    const response = await fetch(encodeURI(path) + `?v=${Date.now()}`);
     if (!response.ok) throw new Error(`HTTP ${response.status} – ${response.statusText}`);
     const data = await response.json();
     cache[path] = data;
