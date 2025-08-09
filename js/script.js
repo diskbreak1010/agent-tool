@@ -71,12 +71,14 @@ div.dataset.category = item.category || "escalation"; // Add category data attri
 div.innerHTML = `
   <div class="card-text">
     <h4>${item.title}</h4>
+    <span class="category-badge">${item.category || 'escalation'}</span>
     <p>${item.summary}</p>
   </div>
   <div class="card-actions">
     <button onclick="showEscalationModal('${item.filename}', '${item.category || 'escalation'}')" class="card-button">View</button>
   </div>
 `;
+
 
     container.appendChild(div);
   });
