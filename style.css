@@ -1294,3 +1294,8 @@ select, input {
   background-color: #1976d2; /* Darker blue on hover */
 }
 
+/* Space below Edge Cases search bar (matches Escalations) */
+#edgecases .search-bar {
+  display: block;
+  margin-bottom: 1.5rem;
+}
