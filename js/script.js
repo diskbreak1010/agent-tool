@@ -789,10 +789,26 @@ function formatText(command) {
   document.execCommand(command, false, null);
 }
 
+
+// Centralized theme toggle code
 document.addEventListener("DOMContentLoaded", () => {
-  initThemeToggle();
-  const btn = document.getElementById("theme-toggle-btn");
-  if (btn) btn.addEventListener("click", toggleTheme);
+  const themeToggleBtn = document.getElementById("theme-toggle-btn");
+
+  // Apply saved theme on load
+  const savedTheme = localStorage.getItem("theme");
+  if (savedTheme === "dark") {
+    document.documentElement.classList.add("dark");
+  } else {
+    document.documentElement.classList.remove("dark");
+  }
+
+  // Listen for toggle button clicks
+  if (themeToggleBtn) {
+    themeToggleBtn.addEventListener("click", () => {
+      const isDark = document.documentElement.classList.toggle("dark");
+      localStorage.setItem("theme", isDark ? "dark" : "light");
+    });
+  }
 });
 
 
