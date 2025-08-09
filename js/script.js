@@ -41,6 +41,9 @@ navLinks.forEach(link => {
     if (targetId === "contacts") {
       loadContacts(version);
     }
+    if (targetId === "edgecases") {
+      loadEdgeCases(version);
+    }
     if (targetId === "escalations") {
       loadEscalations(version);
     }
