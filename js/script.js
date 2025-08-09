@@ -636,14 +636,14 @@ function filterEmailTemplates(searchTerm) {
 function initThemeToggle() {
   const savedTheme = localStorage.getItem("theme");
   if (savedTheme === "dark") {
-    document.documentElement.classList.add("dark");
+    document.body.classList.add("dark"); 
   } else {
-    document.documentElement.classList.remove("dark");
+    document.body.classList.remove("dark");
   }
 }
 
 function toggleTheme() {
-  const isDark = document.documentElement.classList.toggle("dark");
+  const isDark = document.body.classList.toggle("dark");
   localStorage.setItem("theme", isDark ? "dark" : "light");
 }
 
@@ -788,3 +788,10 @@ document.addEventListener("DOMContentLoaded", function () {
 function formatText(command) {
   document.execCommand(command, false, null);
 }
+
+
+const themeToggle = document.querySelector('.theme-toggle');
+
+themeToggle.addEventListener('click', () => {
+  document.body.classList.toggle('dark');
+});
