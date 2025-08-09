@@ -2,21 +2,25 @@
   {
     "filename": "fraud.json",
     "title": "Fraud Escalation",
+    "category": "escalation",
     "summary": "Steps to escalate fraud-related cases properly."
   },
   {
     "filename": "Escalate to Moderation.json",
     "title": "Escalate to Moderation",
+    "category": "escalation",
     "summary": "Steps to escalate moderation-related cases properly."
   },
   {
     "filename": "Escalation to BugMe.json",
     "title": "Escalate to BugMe",
+    "category": "escalation",
     "summary": "Steps to escalate bugme-related cases properly."
   },
   {
     "filename": "oc-process.json",
     "title": "Ownership Change",
+    "category": "process",
     "summary": "Steps how to process ownership change."
   }
 ]
